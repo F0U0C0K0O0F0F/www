@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Python — Kompletná interaktívna príručka syntaxií (SK)</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#fff; --accent:#0f62fe; --muted:#6b7280;
+    --code-bg:#f3f4f6; --highlight:#fff59d;
+  }
+  body{font-family:Inter, Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); margin:0; color:#0b1220;}
+  .wrap{max-width:1200px;margin:20px auto;padding:18px;}
+  header{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+  h1{margin:0;color:var(--accent);font-size:20px;}
+  p.lead{margin:0;color:var(--muted);font-size:14px;}
+  .controls{display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap;}
+  .search{flex:1;min-width:220px;}
+  .search input{width:100%;padding:10px;border-radius:8px;border:1px solid #d1d5db;font-size:14px;}
+  button.btn{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600;}
+  button.ghost{background:white;color:var(--accent);border:1px solid #dbeafe;}
+  .meta{color:var(--muted);font-size:13px;}
+  .toc{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;}
+  .section{margin-top:12px;}
+  .section > .section-head{display:flex;align-items:center;gap:10px;}
+  .main-collapsible{background:linear-gradient(90deg, rgba(15,98,254,0.08), rgba(15,98,254,0.02)); border:1px solid #e0eefc; padding:12px;border-radius:8px;cursor:pointer; display:flex;justify-content:space-between;align-items:center;}
+  .main-collapsible .title{font-weight:700;color:var(--accent);}
+  .subcontent{display:none;padding:12px;margin-top:6px;background:var(--card);border-radius:8px;border:1px solid #eef2ff;}
+  .subsection{margin-bottom:12px;border-left:3px solid #eef2ff;padding-left:10px;}
+  .subcollapsible{background:#f8fafc;padding:8px;border-radius:6px;cursor:pointer;border:1px solid #eef2f8;margin-bottom:6px;}
+  .subcollapsible.active{background:#eef6ff;border-color:#dbeafe;}
+  .item{padding:8px;border-radius:6px;background:linear-gradient(180deg,#ffffff,#fbfdff);border:1px solid #eef2f7;margin-bottom:8px;}
+  .syntax{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;background:var(--code-bg);padding:6px;border-radius:6px;display:inline-block;}
+  .desc{color:var(--muted);margin-top:6px;font-size:14px;}
+  .example{background:#0b122a06;padding:8px;border-radius:6px;margin-top:8px;font-family:ui-monospace, monospace;white-space:pre-wrap;font-size:13px;}
+  .highlight{background:var(--highlight);}
+  .match-count{font-size:13px;color:var(--muted);}
+  footer{margin-top:18px;color:var(--muted);font-size:13px;}
+  /* responsive */
+  @media (max-width:900px){
+    .main-collapsible{flex-direction:column;align-items:flex-start;gap:6px;}
+  }
+
+  /* print-friendly */
+  @media print {
+    body{background:white;color:black;font-size:12px;}
+    .main-collapsible{background:#eee;border:1px solid #bbb;}
+    .subcontent, .item{background:white;border:1px solid #bbb;}
+    .controls, .toc, footer{display:none;}
+    @page { size: A4 portrait; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Python — Kompletná interaktívna príručka syntaxií (SK)</h1>
+      <p class="lead">Prehľad všetkých bežných a pokročilých syntaxií, rozdelený do logických sekcií a podsekcií. Vyhľadávanie zvýrazní a otvorí výsledky.</p>
+      <div class="controls">
+        <div class="search"><input id="search" placeholder="Hľadaj syntax, názov alebo popis (napr. 'lambda', 'with', 'try')"></div>
+        <button class="btn" id="expandAll">Expand all</button>
+        <button class="ghost" id="collapseAll">Collapse all</button>
+        <div class="match-count" id="matchCount">0 výsledkov</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT: sections with sub-sections and items -->
+    <main id="content">
+
+      <!-- Základy -->
+      <section class="section" data-section="Základy">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Základy</div>
+          <div class="meta">Komentáre, vstup/výstup, literaly</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Komentáre a docstringy">
+            <div class="subcollapsible">Komentáre a docstringy</div>
+            <div class="items">
+              <div class="item" data-keywords="komentár comment #">
+                <div class="syntax"># komentár</div>
+                <div class="desc">Jednoradkový komentár — ignorovaný interpreterom.</div>
+                <div class="example"># Toto je komentár</div>
+              </div>
+              <div class="item" data-keywords="docstring trojité uvozovky">
+                <div class="syntax">"""Docstring"""</div>
+                <div class="desc">Viacriadkový reťazec často používaný ako dokumentačný komentár pre moduly, triedy a funkcie.</div>
+                <div class="example">def f():\n    \"\"\"Vysvetľuje čo funkcia robí\"\"\"\n    pass</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Vstup a výstup">
+            <div class="subcollapsible">Vstup a výstup</div>
+            <div class="items">
+              <div class="item" data-keywords="print výpis stdout">
+                <div class="syntax">print(obj, sep=' ', end='\\n', file=sys.stdout)</div>
+                <div class="desc">Vypíše hodnoty do konzoly. Parametre pre oddelovač, ukončenie a cieľový súbor.</div>
+                <div class="example">print("Ahoj", "svet", sep=", ")\n# Ahoj, svet</div>
+              </div>
+              <div class="item" data-keywords="input vstup konzola">
+                <div class="syntax">input(prompt)</div>
+                <div class="desc">Načíta riadok textu od používateľa (vracia str).</div>
+                <div class="example">name = input("Meno: ")\nprint("Ahoj", name)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Literals">
+            <div class="subcollapsible">Literaly</div>
+            <div class="items">
+              <div class="item" data-keywords="string str ' \" f-string f' f\" raw r''">
+                <div class="syntax"> 'text', "text", f"hodnota: {x}", r"raw\\n" </div>
+                <div class="desc">Rôzne spôsoby zápisu reťazcov, f-stringy pre formátovanie, raw pre ignorovanie escape sekvencií.</div>
+                <div class="example">name = "Eva"\nprint(f"Ahoj, {name}")</div>
+              </div>
+              <div class="item" data-keywords="číslo int float complex 123 1.2j">
+                <div class="syntax">123, 3.14, 1+2j</div>
+                <div class="desc">Číselné literály: celočíselné, desatinné a komplexné.</div>
+                <div class="example">a = 5\nb = 3.5\nc = 1+2j</div>
+              </div>
+              <div class="item" data-keywords="boolean True False None">
+                <div class="syntax">True, False, None</div>
+                <div class="desc">Bool hodnoty a špeciálne None (žiadna hodnota).</div>
+                <div class="example">ok = True\nval = None</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Premenné a typy -->
+      <section class="section" data-section="Premenné a typy">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Premenné a dátové typy</div>
+          <div class="meta">Priradenie, typy, konverzie, formátovanie</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Priradenie a názvy">
+            <div class="subcollapsible">Priradenie a názvy</div>
+            <div class="items">
+              <div class="item" data-keywords="priradenie = x = 5 tuple unpacking a,b =">
+                <div class="syntax">x = 5\na, b = 1, 2</div>
+                <div class="desc">Dynamické priradenie, rozbalenie (unpacking).</div>
+                <div class="example">x = 10\na, b = b, a  # swap</div>
+              </div>
+              <div class="item" data-keywords="konštanty uppercase convention">
+                <div class="syntax">PI = 3.14</div>
+                <div class="desc">Konvencia: názvy so všetkými veľkými písmenami znamenajú konštanty (nie vynucené).</div>
+                <div class="example">MAX_RETRIES = 5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Základné typy">
+            <div class="subcollapsible">Základné typy</div>
+            <div class="items">
+              <div class="item" data-keywords="int float str bool list tuple dict set">
+                <div class="syntax">int, float, str, bool, list, tuple, dict, set</div>
+                <div class="desc">Prehľad štandardných typov a ich použitie.</div>
+                <div class="example">x = 5\ns = "text"\nl = [1,2,3]\nt = (1,2)\nd = {"k":1}\ns = {1,2}</div>
+              </div>
+              <div class="item" data-keywords="None typ NoneType">
+                <div class="syntax">None</div>
+                <div class="desc">Špeciálna hodnota indikujúca absenciu hodnoty.</div>
+                <div class="example">result = None</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Konverzie typov">
+            <div class="subcollapsible">Konverzie typov</div>
+            <div class="items">
+              <div class="item" data-keywords="int float str bool list tuple set dict cast">
+                <div class="syntax">int(x), float(x), str(x), bool(x), list(x), tuple(x), set(x), dict(x)</div>
+                <div class="desc">Explicitné prevody medzi typmi; pozor na ValueError pri neplatných vstupoch.</div>
+                <div class="example">n = int("5")\nnums = list("123")  # ['1','2','3']</div>
+              </div>
+              <div class="item" data-keywords="typing type hint annotations">
+                <div class="syntax">from typing import List, Dict\nx: int = 5\ndef f(a: int) -> str: ...</div>
+                <div class="desc">Type hints — anotácie pre statickú analýzu (nevyžaduje interpreter pri runtime).</div>
+                <div class="example">def greet(name: str) -> str:\n  return f"Hello {name}"</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Operátory -->
+      <section class="section" data-section="Operátory">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Operátory</div>
+          <div class="meta">Aritmetika, porovnania, logika, bitové, identity, členstvo</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Aritmetické">
+            <div class="subcollapsible">Aritmetické operátory</div>
+            <div class="items">
+              <div class="item" data-keywords="+ - * / // % ** add multiply power divide">
+                <div class="syntax">+, -, *, /, //, %, **</div>
+                <div class="desc">Sčítanie, odčítanie, násobenie, float delenie, celočíselné delenie, zvyšok, mocnina.</div>
+                <div class="example">5 + 3\n7 // 3  # 2\n2 ** 3  # 8</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Porovnávacie">
+            <div class="subcollapsible">Porovnávacie operátory</div>
+            <div class="items">
+              <div class="item" data-keywords="== != < > <= >=">
+                <div class="syntax">==, !=, &lt;, &gt;, &lt;=, &gt;=</div>
+                <div class="desc">Porovnania vracajú bool.</div>
+                <div class="example">3 &lt;= 5  # True</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Logické">
+            <div class="subcollapsible">Logické operátory</div>
+            <div class="items">
+              <div class="item" data-keywords="and or not boolean logic short-circuit">
+                <div class="syntax">and, or, not</div>
+                <div class="desc">Logické operácie; 'and' a 'or' sú krátkodobé (short-circuit) a vracajú pôvodné hodnoty.</div>
+                <div class="example">a and b\nnot x</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Bitové">
+            <div class="subcollapsible">Bitové operátory</div>
+            <div class="items">
+              <div class="item" data-keywords="& | ^ ~ << >>">
+                <div class="syntax">&amp;, |, ^, ~, <<, &gt;&gt;</div>
+                <div class="desc">Bitové operácie nad celými číslami.</div>
+                <div class="example">x &amp; y\nx << 2</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Priradenie a augmented">
+            <div class="subcollapsible">Priraďovanie / augmented</div>
+            <div class="items">
+              <div class="item" data-keywords="= += -= *= /= //= %=">
+                <div class="syntax">=, +=, -=, *=, /=, //=, %=, **=</div>
+                <div class="desc">Zkrátené priraďovanie pre aktualizáciu hodnoty v mieste.</div>
+                <div class="example">x += 1\ns *= 2</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Členstvo a identity">
+            <div class="subcollapsible">Členstvo / Identity</div>
+            <div class="items">
+              <div class="item" data-keywords="in not in is is not membership identity">
+                <div class="syntax">in, not in, is, is not</div>
+                <div class="desc">Test členstva v kolekcii; 'is' porovnáva identitu objektu.</div>
+                <div class="example">if x in [1,2,3]:\n  pass\nif a is None: ...</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Riadiace štruktúry -->
+      <section class="section" data-section="Riadiace štruktúry">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Riadiace štruktúry</div>
+          <div class="meta">if/for/while/try/with</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Podmienky">
+            <div class="subcollapsible">If / Elif / Else</div>
+            <div class="items">
+              <div class="item" data-keywords="if elif else conditional ternary ? : if-else inline">
+                <div class="syntax">if podmienka:\n    ...\nelif iná:\n    ...\nelse:\n    ...</div>
+                <div class="desc">Vetvenie programu podľa podmienok. Odsadenie je syntaktický blok.</div>
+                <div class="example">if x &gt; 0:\n  print("kladné")\nelse:\n  print("nekladné")</div>
+              </div>
+              <div class="item" data-keywords="ternary conditional expression x if cond else y">
+                <div class="syntax">výraz_if_true if podmienka else výraz_if_false</div>
+                <div class="desc">Krátky zápis pre podmienku vo výraze.</div>
+                <div class="example">res = "OK" if ok else "ERR"</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Smyčky">
+            <div class="subcollapsible">For / While / else v cykloch</div>
+            <div class="items">
+              <div class="item" data-keywords="for in range enumerate zip for-else break continue">
+                <div class="syntax">for item in iterable:\n    ...\nelse:\n    ...</div>
+                <div class="desc">For iteruje cez iterable; voliteľný blok else sa vykoná ak sa cyklus nedokončil cez break.</div>
+                <div class="example">for i in range(5):\n  print(i)\nelse:\n  print("done")</div>
+              </div>
+              <div class="item" data-keywords="while break continue while-else">
+                <div class="syntax">while podmienka:\n    ...\nelse:\n    ...</div>
+                <div class="desc">While vykonáva opakovane kým je podmienka True; else podobne ako pri for.</div>
+                <div class="example">i = 0\nwhile i &lt; 3:\n  i += 1\n  if i == 2: continue\n  print(i)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Context managers">
+            <div class="subcollapsible">With / context managers</div>
+            <div class="items">
+              <div class="item" data-keywords="with open as context manager __enter__ __exit__">
+                <div class="syntax">with expression as var:\n    ...</div>
+                <div class="desc">Zabezpečí korektne zatvorenie/úpravu zdrojov (súbory, zámky, ...).</div>
+                <div class="example">with open('a.txt','w') as f:\n  f.write('ahoj')</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Výnimky">
+            <div class="subcollapsible">Try / Except / Finally / Raise</div>
+            <div class="items">
+              <div class="item" data-keywords="try except finally raise except Exception as e">
+                <div class="syntax">try:\n    ...\nexcept SomeError as e:\n    ...\nfinally:\n    ...</div>
+                <div class="desc">Ošetrenie chýb a povinné čisté ukončenie blokov.</div>
+                <div class="example">try:\n  x = int(input())\nexcept ValueError:\n  print('zlé číslo')\nfinally:\n  print('koniec')</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Funkcie -->
+      <section class="section" data-section="Funkcie">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Funkcie</div>
+          <div class="meta">def, lambda, args/kwargs, anotácie, partial</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Definícia a volanie">
+            <div class="subcollapsible">def / return / docstring</div>
+            <div class="items">
+              <div class="item" data-keywords="def return function def name(params):">
+                <div class="syntax">def meno(parametre):\n    '''doc'''\n    return hodnota</div>
+                <div class="desc">Definícia funkcie, návrat hodnoty cez return; bez return vracia None.</div>
+                <div class="example">def add(a, b):\n  return a + b\nprint(add(2,3))</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Argumenty">
+            <div class="subcollapsible">Pozície / Kľúčové / Default / Varargs</div>
+            <div class="items">
+              <div class="item" data-keywords="*args **kwargs default positional keyword-only">
+                <div class="syntax">def f(a, b=2, *args, c, **kwargs): ...</div>
+                <div class="desc">*args - n-tica pozičných; **kwargs - dict kľúčových. Podpora default hodnôt a keyword-only parametrov.</div>
+                <div class="example">def f(a, b=2, *args, c=3, **kwargs):\n  print(a,b,args,c,kwargs)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Lambda a higher-order">
+            <div class="subcollapsible">Lambda / map / filter / reduce</div>
+            <div class="items">
+              <div class="item" data-keywords="lambda anonym funkcia map filter reduce list comprehension">
+                <div class="syntax">lambda x: x*2\nlist(map(lambda x: x*2, [1,2]))</div>
+                <div class="desc">Krátke anonymné funkcie, často používané s map/filter, ale list comprehensions sú preferované.</div>
+                <div class="example">squares = [x*x for x in range(5)]</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Dekorátory">
+            <div class="subcollapsible">Dekorátory (decorators)</div>
+            <div class="items">
+              <div class="item" data-keywords="@decorator function wrapper functools wraps">
+                <div class="syntax">@decorator\ndef f(...): ...</div>
+                <div class="desc">Funkcie, ktoré obalia iné funkcie. Používajú sa pre logging, caching, autorizáciu...</div>
+                <div class="example">def log(fn):\n  def wrapper(*a, **k):\n    print('call')\n    return fn(*a, **k)\n  return wrapper\n\n@log\ndef greet():\n  print('hi')</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Moduly a balíky -->
+      <section class="section" data-section="Moduly a balíky">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Moduly a balíky</div>
+          <div class="meta">import, from ... import, __init__, pip, venv</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Importovanie">
+            <div class="subcollapsible">Importovanie modulov</div>
+            <div class="items">
+              <div class="item" data-keywords="import from import as module absolute relative">
+                <div class="syntax">import modul\nfrom modul import name\nimport modul as m</div>
+                <div class="desc">Rôzne spôsoby importu. Preferuj explicitné importy (from modul import name) pre čitateľnosť.</div>
+                <div class="example">import math\nfrom math import pi\nimport numpy as np</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Balíky a __init__">
+            <div class="subcollapsible">Balíky, __init__.py</div>
+            <div class="items">
+              <div class="item" data-keywords="package __init__ module relative import . .. namespace">
+                <div class="syntax">project/\n  package/\n    __init__.py\n    mod.py</div>
+                <div class="desc">Súbor __init__.py definuje balík; relatívne importy pomocou '.' a '..'.</div>
+                <div class="example">from .mod import func  # relatívny import</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Správa závislostí">
+            <div class="subcollapsible">pip, venv, requirements</div>
+            <div class="items">
+              <div class="item" data-keywords="pip venv virtualenv requirements.txt pipenv poetry">
+                <div class="syntax">python -m venv venv\npip install package\npip freeze &gt; requirements.txt</div>
+                <div class="desc">Nástroje pre správu prostredia a závislostí (venv, pip, poetry, pipenv).</div>
+                <div class="example">python -m venv .venv\nsource .venv/bin/activate\npip install requests</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Kolekcie -->
+      <section class="section" data-section="Kolekcie">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Kolekcie</div>
+          <div class="meta">list, tuple, dict, set, comprehension</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="List a tuple">
+            <div class="subcollapsible">List / Tuple</div>
+            <div class="items">
+              <div class="item" data-keywords="list [] append extend pop insert slice">
+                <div class="syntax">l = [1,2]\nl.append(x)\nl.pop()\nl[1:3]</div>
+                <div class="desc">Listy sú mutable, podporujú metódy append/extend/pop/insert, slicing vracia nový list.</div>
+                <div class="example">l = [1,2,3]\nl.append(4)\nprint(l)</div>
+              </div>
+              <div class="item" data-keywords="tuple () immutable"):
+                <div class="syntax">t = (1,2)</div>
+                <div class="desc">Tuples sú immutable (nemenné), vhodné pre heterogénne kolekcie a kľúče do dict.</div>
+                <div class="example">t = (1,'a')\n# t[0] => 1</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Dict">
+            <div class="subcollapsible">Dict</div>
+            <div class="items">
+              <div class="item" data-keywords="dict {} get keys values items setdefault defaultdict">
+                <div class="syntax">d = {'k': v}\nd.get('k', default)\nd.keys(), d.values(), d.items()</div>
+                <div class="desc">Slovníky mapujú kľúče na hodnoty; používa sa get pre bezpečný prístup, collections.defaultdict pre default hodnoty.</div>
+                <div class="example">d = {'a':1}\nprint(d.get('b',0))</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Set">
+            <div class="subcollapsible">Set</div>
+            <div class="items">
+              <div class="item" data-keywords="set {} unique union intersection difference">
+                <div class="syntax">s = {1,2,3}\ns.add(x)\ns.union(t)</div>
+                <div class="desc">Neusporiadaná kolekcia unikátnych prvkov; podpora množinových operácií.</div>
+                <div class="example">a = {1,2}\nb = {2,3}\nprint(a & b)  # {2}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Comprehensions">
+            <div class="subcollapsible">Comprehensions</div>
+            <div class="items">
+              <div class="item" data-keywords="list comprehension set dict comprehension generator expression">
+                <div class="syntax">[x*2 for x in seq if cond]\n{x:x*x for x in seq}\n(x*x for x in seq)</div>
+                <div class="desc">Kratké a výkonné spôsoby tvorby kolekcií; generator expressions sú lazy.</div>
+                <div class="example">squares = [x*x for x in range(5)]\ng = (x*x for x in range(5))</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Iterátory a generátory -->
+      <section class="section" data-section="Iterátory a generátory">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Iterátory a generátory</div>
+          <div class="meta">iter, next, yield, generator functions</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Iterátory">
+            <div class="subcollapsible">Iterátory</div>
+            <div class="items">
+              <div class="item" data-keywords="iter next __iter__ __next__">
+                <div class="syntax">it = iter(seq)\nnext(it)</div>
+                <div class="desc">Iterator je objekt s metodami __iter__ a __next__; next() číta ďalší prvok alebo vyhodí StopIteration.</div>
+                <div class="example">it = iter([1,2])\nprint(next(it))</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Generátory">
+            <div class="subcollapsible">Generátory (yield)</div>
+            <div class="items">
+              <div class="item" data-keywords="yield generator lazy sequence">
+                <div class="syntax">def gen():\n  yield 1\n  yield 2</div>
+                <div class="desc">Generátorové funkcie produkujú hodnoty postupne (lazy evaluation), vhodné pri práci s veľkými dátami.</div>
+                <div class="example">for x in gen():\n  print(x)</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Context managers a resources -->
+      <section class="section" data-section="Context managers">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Context managers & resource handling</div>
+          <div class="meta">with, contextlib, custom __enter__/__exit__</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="with a contextlib">
+            <div class="subcollapsible">with / contextlib</div>
+            <div class="items">
+              <div class="item" data-keywords="contextlib contextmanager __enter__ __exit__ closing">
+                <div class="syntax">from contextlib import contextmanager\n@contextmanager\ndef cm():\n  yield</div>
+                <div class="desc">Funkcie pre jednoduché vytváranie context managerov; alternatíva k tvorbe tried s __enter__/__exit__.</div>
+                <div class="example">from contextlib import contextmanager\n@contextmanager\ndef myctx():\n  print('enter')\n  yield\n  print('exit')</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Typing a datové anotácie -->
+      <section class="section" data-section="Typing">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Typing a anotácie</div>
+          <div class="meta">typing module, generics, protocols</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Základy typing">
+            <div class="subcollapsible">Základy</div>
+            <div class="items">
+              <div class="item" data-keywords="typing List Dict Optional Union Any Callable">
+                <div class="syntax">from typing import List, Optional, Union\nx: List[int]\nMaybe = Optional[int]</div>
+                <div class="desc">Type hints pre statickú kontrolu (mypy, pyright). Neovplyvňujú runtime (štandardne).</div>
+                <div class="example">def f(x: int) -> str:\n  return str(x)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Pokročilé typing">
+            <div class="subcollapsible">Pokročilé</div>
+            <div class="items">
+              <div class="item" data-keywords="Protocol TypedDict Generic TypeVar get_args get_origin">
+                <div class="syntax">from typing import TypeVar, Generic\nT = TypeVar('T')\nclass Box(Generic[T]): ...</div>
+                <div class="desc">Generické typy, TypedDict, Protocol – užitočné v typovaných veľkých kódoch.</div>
+                <div class="example">from typing import TypeVar\nT = TypeVar('T')\nclass Box(Generic[T]):\n  def __init__(self, v: T): self.v = v</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Concurrency -->
+      <section class="section" data-section="Concurrency">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Súbežnosť (Concurrency)</div>
+          <div class="meta">threading, multiprocessing, asyncio</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="threading">
+            <div class="subcollapsible">Threading</div>
+            <div class="items">
+              <div class="item" data-keywords="thread threading Thread Lock RLock">
+                <div class="syntax">from threading import Thread, Lock\nth = Thread(target=fn)\nth.start()</div>
+                <div class="desc">Vlákna sú užitočné pre I/O bound úlohy; pri CPU-bound úlohách GIL obmedzuje paralelizmus.</div>
+                <div class="example">from threading import Thread\n\ndef work():\n  print('hi')\n\nThread(target=work).start()</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="multiprocessing">
+            <div class="subcollapsible">Multiprocessing</div>
+            <div class="items">
+              <div class="item" data-keywords="multiprocessing Pool Process cpu-bound parallel">
+                <div class="syntax">from multiprocessing import Pool\nwith Pool() as p:\n  p.map(fn, items)</div>
+                <div class="desc">Spúšťa viac procesov — obchádza GIL, vhodné pre CPU-bound úlohy.</div>
+                <div class="example">from multiprocessing import Pool\nwith Pool(4) as p:\n  print(p.map(lambda x: x*x, [1,2,3]))</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="asyncio">
+            <div class="subcollapsible">Asyncio (async/await)</div>
+            <div class="items">
+              <div class="item" data-keywords="async await asyncio event loop awaitable coroutine">
+                <div class="syntax">async def coro():\n  await other()\n\nimport asyncio\nasyncio.run(coro())</div>
+                <div class="desc">Asynchrónny model vhodný pre veľa súbežných I/O; používa event loop a await pre awaitables.</div>
+                <div class="example">import asyncio\nasync def main():\n  await asyncio.sleep(1)\n  print('done')\nasyncio.run(main())</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Debugging, testing, dokumentácia -->
+      <section class="section" data-section="Debugging & Testing">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Debugging, testing a dokumentácia</div>
+          <div class="meta">print, pdb, unittest, pytest, sphinx</div>
+        </div>
+        <div class="subcontent">
+
+          <div class="subsection" data-sub="Debugging">
+            <div class="subcollapsible">Debugging</div>
+            <div class="items">
+              <div class="item" data-keywords="pdb breakpoint debug print">
+                <div class="syntax">import pdb; pdb.set_trace()\n# alebo breakpoint()</div>
+                <div class="desc">Interaktívne ladiecie v mieste; breakpoint() volá debugger.</div>
+                <div class="example">def f():\n  breakpoint()\n  print('after')</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Testing">
+            <div class="subcollapsible">Unit testing (unittest / pytest)</div>
+            <div class="items">
+              <div class="item" data-keywords="unittest pytest assert">
+                <div class="syntax">def test_add():\n  assert add(2,3) == 5</div>
+                <div class="desc">Používa sa pytest pre jednoduché testy; unittest je súčasť štandardnej knižnice.</div>
+                <div class="example"># pytest-style test\ndef test_sum():\n  assert sum([1,2]) == 3</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Dokumentácia">
+            <div class="subcollapsible">Sphinx & docstrings</div>
+            <div class="items">
+              <div class="item" data-keywords="sphinx docstring rst napoleon autodoc">
+                <div class="syntax">"""Krátky popis\n\n:param x: ...\n:returns: ..."""</div>
+                <div class="desc">Sphinx generuje dokumentáciu z docstringov; Napoleon podporuje Google / NumPy štýl.</div>
+                <div class="example">def f(x):\n  \"\"\"Príklad docstring\n\n  Args:\n    x (int): ...\n  Returns:\n    int\n  \"\"\"\n  return x</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Packaging a distribúcia -->
+      <section class="section" data-section="Packaging">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Balíkovanie a distribúcia</div>
+          <div class="meta">setup.cfg, pyproject.toml, wheel</div>
+        </div>
+        <div class="subcontent">
+          <div class="subsection" data-sub="pyproject and setup">
+            <div class="subcollapsible">pyproject.toml / setup.cfg</div>
+            <div class="items">
+              <div class="item" data-keywords="pyproject poetry setuptools wheel twine">
+                <div class="syntax">[build-system]\nrequires = [\"setuptools\", \"wheel\"]\nbuild-backend = \"setuptools.build_meta\"</div>
+                <div class="desc">Moderný štandard pre build konfigurácie; poetry a setuptools používajú pyproject.toml.</div>
+                <div class="example">python -m build\npython -m twine upload dist/*</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Užitočné built-in funkcie -->
+      <section class="section" data-section="Builtins">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Užitočné vstavané funkcie</div>
+          <div class="meta">len, range, enumerate, zip, map, filter, sorted</div>
+        </div>
+        <div class="subcontent">
+          <div class="subsection" data-sub="Zoznam builtins">
+            <div class="subcollapsible">Zoznam</div>
+            <div class="items">
+              <div class="item" data-keywords="len range enumerate zip map filter sorted reversed sum any all min max">
+                <div class="syntax">len(obj), range(...), enumerate(iterable), zip(a,b), map(fn, it)</div>
+                <div class="desc">Veľa krát využívaných funkcií pre transformácie, iterácie a redukciu.</div>
+                <div class="example">for i, v in enumerate(['a','b']):\n  print(i,v)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Standardná knižnica - highlights -->
+      <section class="section" data-section="Standard Library">
+        <div class="main-collapsible" tabindex="0">
+          <div class="title">Standardná knižnica (vybrané moduly)</div>
+          <div class="meta">os, sys, pathlib, json, datetime, collections, itertools</div>
+        </div>
+        <div class="subcontent">
+          <div class="subsection" data-sub="Filesystem & paths">
+            <div class="subcollapsible">os, pathlib</div>
+            <div class="items">
+              <div class="item" data-keywords="os.path pathlib Path join exists">
+                <div class="syntax">from pathlib import Path\np = Path('a') / 'b'\nprint(p.exists())</div>
+                <div class="desc">Pathlib poskytuje objektovo-orientovaný prístup k cestám — preferované pred os.path.</div>
+                <div class="example">p = Path('.')\nfor f in p.glob('*.py'):\n  print(f)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Dátum a čas">
+            <div class="subcollapsible">datetime</div>
+            <div class="items">
+              <div class="item" data-keywords="datetime date time timezone isoformat strptime">
+                <div class="syntax">from datetime import datetime\nnow = datetime.now()\nnow.isoformat()</div>
+                <div class="desc">Manipulácia s dátumami a časmi; timezone-aware objekty s modullom zoneinfo v 3.9+.</div>
+                <div class="example">from datetime import datetime\nprint(datetime.now().isoformat())</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Serializácia">
+            <div class="subcollapsible">json / pickle</div>
+            <div class="items">
+              <div class="item" data-keywords="json dumps loads pickle dump load">
+                <div class="syntax">import json\njson.dumps(obj)\njson.loads(s)</div>
+                <div class="desc">JSON pre interoperabilitu; pickle pre Python-serializáciu (nezabezpečené pre neočakávané zdroje).</div>
+                <div class="example">import json\nprint(json.dumps({'a':1}))</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" data-sub="Collections & Itertools">
+            <div class="subcollapsible">collections, itertools</div>
+            <div class="items">
+              <div class="item" data-keywords="collections defaultdict deque Counter namedtuple itertools permutations combinations chain accumulate">
+                <div class="syntax">from collections import defaultdict, Counter, deque\nfrom itertools import chain, combinations</div>
+                <div class="desc">Silné nástroje pre prácu s kolekciami a iteráciami.</div>
+                <div class="example">from collections import Counter\nprint(Counter([1,2,2]))</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>Tip: Ak chceš exportovať do PDF, stlač <strong>Ctrl/Cmd+P</strong> a vyber "Uložiť ako PDF". Pre tlač vo vysokom rozlíšení zvoľ portrait alebo landscape podľa potreby.</p>
+      <p>Ak chceš, môžem: 1) pridať viac príkladov k jednotlivým položkám, 2) pripraviť verziu v angličtine, alebo 3) rozdeliť súbor na viac HTML stránok podľa sekcií.</p>
+    </footer>
+  </div>
+
+<script>
+/* --- Interactivity: collapsible sections & subsections --- */
+document.querySelectorAll('.main-collapsible').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const sub = btn.nextElementSibling;
+    const isOpen = sub.style.display === 'block';
+    sub.style.display = isOpen ? 'none' : 'block';
+    btn.setAttribute('aria-expanded', !isOpen);
+  });
+  // keyboard accessibility
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { btn.click(); e.preventDefault(); }
+  });
+});
+document.querySelectorAll('.subcollapsible').forEach((sc) => {
+  sc.addEventListener('click', () => {
+    sc.classList.toggle('active');
+    const items = sc.nextElementSibling;
+    if (!items) return;
+    const isOpen = items.style.display === 'block';
+    items.style.display = isOpen ? 'none' : 'block';
+  });
+});
+
+/* --- Expand / Collapse All --- */
+document.getElementById('expandAll').addEventListener('click', () => {
+  document.querySelectorAll('.subcontent').forEach(s => s.style.display = 'block');
+  document.querySelectorAll('.subcollapsible').forEach(sc => sc.classList.add('active'));
+  document.querySelectorAll('.subsection .items').forEach(it => it.style.display = 'block');
+});
+document.getElementById('collapseAll').addEventListener('click', () => {
+  document.querySelectorAll('.subcontent').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.subcollapsible').forEach(sc => sc.classList.remove('active'));
+  document.querySelectorAll('.subsection .items').forEach(it => it.style.display = 'none');
+});
+
+/* --- Search: find, highlight, open sections, scroll to first match --- */
+const searchInput = document.getElementById('search');
+const matchCountEl = document.getElementById('matchCount');
+
+function clearHighlights() {
+  document.querySelectorAll('.highlight').forEach(el => {
+    el.classList.remove('highlight');
+  });
+}
+
+function updateMatches(q) {
+  const items = document.querySelectorAll('.item');
+  let matches = 0;
+  items.forEach(item => {
+    const text = (item.textContent || '').toLowerCase();
+    const keywords = (item.dataset.keywords || '').toLowerCase();
+    const full = text + ' ' + keywords;
+    if (q && full.includes(q)) {
+      // highlight item
+      item.classList.add('highlight');
+      matches++;
+      // ensure its section + subsection open
+      const itemsContainer = item.parentElement; // .items
+      if (itemsContainer) itemsContainer.style.display = 'block';
+      const sub = itemsContainer.closest('.subcontent');
+      if (sub) sub.style.display = 'block';
+      // also mark subcollapsible active
+      const subcoll = itemsContainer.previousElementSibling;
+      if (subcoll && subcoll.classList) subcoll.classList.add('active');
+      // scroll to first match later
+    } else {
+      item.classList.remove('highlight');
+    }
+  });
+  matchCountEl.textContent = matches + ' výsledkov';
+  // scroll to first match
+  const first = document.querySelector('.item.highlight');
+  if (first) first.scrollIntoView({behavior: 'smooth', block: 'center'});
+}
+
+let debounceTimer = null;
+searchInput.addEventListener('input', (e) => {
+  const q = (e.target.value || '').trim().toLowerCase();
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    if (!q) {
+      // clear
+      document.querySelectorAll('.item').forEach(it => it.classList.remove('highlight'));
+      matchCountEl.textContent = '0 výsledkov';
+    } else {
+      updateMatches(q);
+    }
+  }, 150);
+});
+
+/* Accessibility: open all sections with matches on Enter in search */
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const q = (e.target.value || '').trim().toLowerCase();
+    if (q) updateMatches(q);
+  }
+});
+
+/* Nice: highlight persisted after reload? not implemented. */
+/* End of script */
+</script>
+</body>
+</html>

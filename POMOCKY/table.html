@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="style.css" type="text/css" />
+
+    <title>TAGY TABULIEK</title>
+</head>
+<body>
+    <table class="skuska" border="10" cellspacing="2" cellpadding="7">
+        <thead class="skuska">
+            <tr>
+                <th>KATEGÓRIA TAGOV</th>
+                <th>TAG</th>
+                <th>PÁROVÝ TAG</th>
+                <th>ATRIBÚT</th>
+                <th>POPIS TAGU</th>
+                <th>ĎALŠIE INFO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td><strong>TAGY STRÁNKY</strong></td>
+            <tr>
+                <td></td>
+                <td>SHORTCUT ICON</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>shortcut icon</td>
+                <td>Píše sa medzi tagy <code>&lt;head&gt;</code> a <code>&lt;/head&gt;</code> ako <code>&lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"&gt;</code>. Zobrazuje ikonu stránky (favicon) v záložke prehliadača.</td>
+            </tr>
+            <tr>
+                <tr>
+                    <td></td>
+                    <td>META</td>
+                    <td>NIE</td>
+                    <td>ÁNO</td>
+                    <td>meta tag</td>
+                    <td>
+                        Meta tagy sa používajú na poskytovanie informácií o stránke (tzv. metadata) pre prehliadače a vyhľadávače. Označujú napríklad kódovanie stránky (<code>&lt;meta charset="UTF-8"&gt;</code>), popis stránky, autora, kľúčové slová, viewport pre responzívny dizajn a ďalšie vlastnosti. Píšu sa do sekcie <code>&lt;head&gt;</code> HTML dokumentu.
+                        <br><br>
+                        <strong>Najpoužívanejšie meta tagy:</strong>
+                        <ul>
+                            <li><code>&lt;meta charset="UTF-8"&gt;</code> – určuje znakovú sadu stránky</li>
+                            <li><code>&lt;meta name="description" content="Popis stránky"&gt;</code> – krátky popis obsahu stránky (dôležité pre SEO)</li>
+                            <li><code>&lt;meta name="keywords" content="kľúčové, slová, stránky"&gt;</code> – zoznam kľúčových slov (SEO, dnes menej dôležité)</li>
+                            <li><code>&lt;meta name="author" content="Meno autora"&gt;</code> – meno autora stránky</li>
+                            <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> – nastavuje responzívne zobrazenie na mobiloch</li>
+                        </ul>
+                    </td>
+                </tr>
+                <td><strong>DELENIE STRÁNKY</strong></td>
+                <tr>
+                    <td></td>
+                    <td>&lt;IFRAME&gt;</td>
+                    <td>ÁNO</td>
+                    <td>ÁNO</td>
+                    <td>inline frame</td>
+                    <td>
+                        <strong>Popis:</strong> <code>&lt;iframe&gt;</code> (inline frame) je HTML element, ktorý umožňuje vložiť inú webovú stránku alebo dokument do aktuálnej stránky ako vnorený rámec.<br>
+                        <strong>Použitie:</strong> Najčastejšie sa používa na zobrazenie externého obsahu, ako sú videá (napr. YouTube), mapy (Google Maps), dokumenty, reklamy alebo iné webové stránky.<br>
+                        <strong>Príklad použitia:</strong>
+                        <pre><code>&lt;iframe src="https://www.example.com" width="600" height="400" title="Ukážka stránky"&gt;&lt;/iframe&gt;</code></pre>
+                        <strong>Hlavné atribúty:</strong>
+                        <ul>
+                            <li><code>src</code> – adresa (URL) zobrazovaného obsahu</li>
+                            <li><code>width</code> a <code>height</code> – šírka a výška rámca (v px alebo %)</li>
+                            <li><code>title</code> – popis obsahu pre prístupnosť</li>
+                            <li><code>frameborder</code> – zobrazenie okraja rámca (0/1, dnes sa používa cez CSS)</li>
+                            <li><code>allowfullscreen</code> – povolenie zobrazenia na celú obrazovku (napr. pre videá)</li>
+                            <li><code>loading</code> – spôsob načítania (<code>lazy</code> pre oneskorené načítanie)</li>
+                            <li><code>allow</code> – povolenie špecifických funkcií (napr. <code>allow="autoplay"</code>)</li>
+                        </ul>
+                        <strong>Poznámky:</strong>
+                        <ul>
+                            <li>Obsah v <code>&lt;iframe&gt;</code> je izolovaný od hlavnej stránky (tzv. sandboxing), čo zvyšuje bezpečnosť.</li>
+                            <li>Niektoré weby môžu zakázať zobrazenie v <code>&lt;iframe&gt;</code> pomocou HTTP hlavičiek (napr. <code>X-Frame-Options</code>).</li>
+                            <li>Vnorené stránky môžu byť štýlovo a funkčne obmedzené podľa nastavení atribútov a politiky prehliadača.</li>
+                        </ul>
+                    </td>
+                </tr>
+            <tr>
+                <td></td>
+                <td>ARTICLE(ČLÁNOK)</td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>article</td>
+                <td>článok alebo samostatná časť obsahu stránky
+                    </br>článok nemusí obsahovať len text ale môže obsahovať aj ďalšie informácie ako titulok, autora, dátum 
+                    publikácie, hodnotenia a pod.
+                    </br>ZVYČAJNE JE ROZDELENÝ NA<ol><strong>< header ></strong> - (párový)hlavičku s titulkom</ol>
+                    <ol><strong>< section ></strong> - (párový)sekciu s obsahom</ol>
+                    <ol><strong>< footer ></strong> - (párový)pätičku s informáciami o autorovi, dátume publikácie a pod.
+                    </br>Do pätičky stránky patria informácie o copyrighte, rok vytvorenia a kto web vytvoril.
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>BACKGROUND</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>background</td>
+                <td>označuje pozadie elementu (píše sa do CSS štýlu) napr.:</br>
+                <code>
+                body {<br>
+                &nbsp;&nbsp;background: #f0f0f0;<br>
+                }
+                </code>
+                </br>alebo
+                <p>Pridanie obrázka do pozadia pomocou CSS:</br>
+                <code>
+                body {<br>
+                &nbsp;&nbsp;background-image: url('obrazok.jpg');<br>
+                }
+                </code></p>
+                <p>je dobré počítať s tým že obrázok nemusí byť dostupný, preto je dobré pridať aj farbu pozadia, 
+                ktorá sa zobrazí ak obrázok nie je dostupný:
+                </br>
+                <code>
+                background: url('images/background.png') #F9F9F9;
+                </code></p>
+                <p><pre>Obrázok v pozadí 
+
+Teraz si už pridáme do pozadia loga stiahnutý obrázok. Veľkosť obrázku
+nastavíme na 40x40 pixelov a zariadime, aby sa v pozadí neopakoval. V
+predvolenom správaní sa totiž obrázok opakuje tak, aby vyplnil celú
+dostupnú plochu:
+
+#logo {
+    height: 40px;
+    margin: auto 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: url('images/logo.png') no-repeat;
+    background-size: 40px 40px;
+}
+
+Používame tu nám už známu vlastnosť background, ktorá je
+v tomto prípade skratkou za vlastnosti:
+
+
+	background-image - slúži na nastavenie obrázku v pozadí.
+	Adresu obrázku jej odovzdáme pomocou funkcie url().
+
+	background-repeat - určuje, či sa má obrázok opakovať,
+	prípadne ako. My nastavujeme hodnotu no-repeat, aby sa neopakoval. 
+	O ďalších hodnotách sa dočítate v CSS3 kurze, konkrétne v lekcii Pozadia
+	elementov - Veľkosť, pozícia a prichytenie v CSS3.
+
+
+Ďalej tu ešte máme novú vlastnosť background-size, ktorou
+určujeme veľkosť obrázku v pozadí.
+
+Keby sme si teraz web zobrazili, tak by sa nám text aj obrázky prekrývali.
+Takéto správanie však nechceme, preto všetkým elementom v logu nastavíme
+vonkajší okraj zľava na 50px. Napíšeme si nový selektor,
+ktorým vyberieme všetkých priamych potomkov elementu s ID logo.
+Všetky elementy akéhokoľvek typu vyberáme pomocou hviezdičky
+*:
+
+#logo > * {
+    margin: 0 0 0 50px;
+}
+
+Štýlovanie elementov loga 
+
+Oštýlujeme tiež nadpis < h1 >, konkrétne hrúbku písma,
+veľkosť písma a výšku riadku:
+
+#logo h1 {
+    font-weight: normal;
+    font-size: 1.5em;
+    line-height: 1.2em;
+    color: white;
+}
+
+Ďalej si oštýlujeme obsah nesémantického tagu < span >,
+ktorý slúži iba na štýlovanie. Chceme zvýrazniť priezvisko Bittner, preto
+mu nastavíme tučný font a vypíšeme ho veľkými písmenami:
+
+#logo h1 span {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+Nakoniec ešte nastavíme veľkosť písma aj tagu
+< small >:
+
+#logo small {
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< NAV ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>navigation</td>
+                <td>Jeho použitie sa opäť oproti tagu < div > oplatí, pretože vyhľadávače pochopia, že sa jedná o navigáciu.
+                    </br>Navigácia je zoznam odkazov na najdôležitejsie časti podstránky, ktoré sú pre používateľa dôležité.
+                    </br>Z tohto dôvodu umiestnime medzi tagmi navigácie zoznam, ktorý vytvoríme pomocou tagu < ul > a < li >
+                <pre><strong>Navigačné menu</strong>
+
+Najprv zoznamu v navigácii zmeníme odrážky. Robí sa to
+pomocou CSS vlastnosti list-style-type, na výber máme
+nasledujúce hodnoty:
+
+
+	circle - kruhové,
+
+	decimal - číslované,
+
+	decimal-leading-zero - číslované na 2 miesta (pred čísla
+	menšie ako 10 pridá nulu),
+
+	disc (východiskový) - vyplnený kruh,
+
+	lower-alpha - malé písmená latinskej abecedy,
+
+	lower-greek - malé písmená gréckej abecedy,
+
+	lower-latin - malé písmená latinskej abecedy,
+
+	lower-roman - rímske číslice malými písmenami,
+
+	none - bez odrážok,
+
+	square - štvorcové,
+
+	upper-alpha - veľké písmená latinskej abecedy,
+
+	upper-greek - veľké písmená gréckej abecedy,
+
+	upper-latin - veľké písmená latinskej abecedy,
+
+	upper-roman - rímske číslice veľkými písmenami,
+
+	inherit - zdedí typ odrážok od rodičovského elementu.
+
+
+Ako rôzne typy vyzerajú, máme ukázané v CSS3 kurze, konkrétne v lekcii
+Zoznamy v CSS3. Nás bude
+teraz zaujímať hodnota none, ktorá odrážky
+vypne.
+
+Nastavíme teda tento štýl danému zoznamu a zároveň mu vypneme
+vonkajšie okraje (tým zmizne voľné miesto hore). Ďalej si zo
+zoznamu urobíme flexbox, aby sa nám prvky menu zobrazovali vedľa
+seba, čo už dobre poznáme:
+
+nav ul {
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+}
+
+<strong>Vycentrovanie pomocou flexboxu</strong>
+
+Položky zoznamu budeme chcieť mať vertikálne
+vycentrované. Ukážeme si nový spôsob, ako to dosiahnuť pomocou
+flexboxu. Už vieme, že pomocou vlastnosti
+justify-content definujeme, aký veľký je priestor medzi a okolo
+položiek obsahu pozdĺž smeru flexboxu. Pomocou nej teda riešime
+umiestnenie položiek v smere flexboxu (pre nás teraz v riadku).
+Existuje však aj vlastnosť pre definíciu umiestnenia v druhom smere, a to
+vlastnosť align-items. Tejto vlastnosti môžeme opäť nastaviť
+mnoho hodnôt, my použijeme hodnotu center pre vycentrovanie
+položiek:
+
+nav ul {
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+Zároveň sme ešte zoznam roztiahli cez celú výšku navigačného menu
+(height: 100%), aby jeho položky boli naozaj v strede menu
+
+<strong>Úprava položiek menu</strong> 
+
+Zostáva nejako upraviť položky zoznamu, aby vedľa seba vyzerali
+lepšie. Pridáme im preto nejaké odsadenie pomocou
+padding a margin, zmeníme veľkosť fontu a
+výšku riadku:
+
+nav ul li {
+    padding: 0 25px;
+    margin: 0 5px;
+    font-size: 1em;
+    line-height: 4.3em;
+}
+
+Odkazy nebudeme chcieť modré, ale biele.
+Zafarbiť ich nie je nič ťažké. Ako vypnúť podčiarknutie a vypísať ich
+veľkými písmenami už tiež vieme:
+
+nav ul a {
+    color: white;
+    padding: 8px 0;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+<strong>Akcia položky po nabehnutí
+myšou - hover</strong>
+
+Zostáva len nastaviť podčiarknutie aktívnej položke
+(položke stránky, na ktorej sa aktuálne vyskytujeme) a položke, na ktorú
+prejdeme myšou. Štýl budú mať rovnaký, preto si pre ne napíšeme iba
+jeden štýl. Stačí, keď u neho uvedieme oba selektory oddelené čiarkou.
+Využijeme tu parameter (pseudoselektor) <strong>:hover</strong>, ktorý
+spúšťa akciu po nabehnutí myšou na prvok na stránke. Aktívnu
+položku vyberieme pomocou triedy active:
+
+nav ul a:hover, .active a {
+    border-bottom: 2px solid #EF6534;
+}
+
+.contact-button {
+    background: #EF6534;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+Štylizácia tohto tlačidla je veľmi podobná nášmu referenčnému tlačidlu, len je o niečo menšia. Obe tlačidlá teraz upravíme, 
+ak na ne používateľ nabehne myšou (použijeme opäť pseudoselektor :hover):
+
+.contact-button:hover,
+.references-button:hover {
+    filter: brightness(115%) contrast(85%);
+    border: 0;
+}
+Pomocou vlastnosti filter za použitia funkcií
+brightness() (svetlosť) a contrast() (kontrast)
+zosvetľujeme oblasť tlačidla po nabehnutí myšou. Nastavením vlastnosti
+border na hodnotu 0 zabraňujeme podčiarknutiu textu
+"Kontakt" v hornom menu.
+
+Teraz ešte odstránime už nadbytočný odkaz na stránku s kontaktmi z
+textu s celou vetou.
+
+Elementu < html > teda nastavíme rovnako tmavé pozadie,
+ako má pätička. Do style.css teda pridáme:
+
+html {
+    background: #414042;
+}
+
+Inak okolo pätičky nie je veľmi čo vymýšľať. Nastavíme výšku na
+100px, padding, farbu textu, pozadia a vo vlastnosti
+box-sizing zvolíme hodnotu border-box, aby bola
+výška pätičky naozaj 100px aj po pridaní
+padding:
+
+footer {
+    box-sizing: border-box;
+    text-align: center;
+    height: 100px;
+    color: white;
+    background: #414042;
+    padding: 50px 0 0 0;
+    clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%);
+}
+
+Najzaujímavejšie je pravdepodobne použitie vlastnosti
+<strong>clip-path</strong> s funkciou <strong>polygon()</strong> (mnohouholník). Táto
+vlastnosť oreže obsah elementu podľa odovzdaného tvaru. My ako tvar
+používame mnohouholník vytvorený spomínanou funkciou
+<strong>polygon()</strong>, ktorá berie súradnice troch a viacerých bodov
+mnohouholníka. Tieto súradnice sú relatívne k danému elementu, teda bod
+0 0 sa nachádza v ľavom hornom rohu elementu a bod
+100% 100% v pravom dolnom rohu. Mohli by sme použiť napríklad aj
+elipsu <strong>ellipse()</strong> alebo kruh <strong>circle()</strong>, to by však k
+nášmu designu nepasovalo.
+
+Hodnota 105 % (namiesto očakávateľných 100 %) u
+clip-path je tu preto, že Chrome pri zoomovaní stránky občas
+vykreslí vlastnosť clip-path o 1px menšiu a pätička potom presne nedolieha
+k pozadiu.
+
+Podobne ako odkaz v hlavičke naštýlujeme aj odkaz v pätičke:
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+<strong>FIXNÉ MENU</strong>
+
+Hlavička s navigačným menu sa skvele hodí na to, aby sme na ňu
+aplikovali zaujímavú vlastnosť - fixnú pozíciu.
+Hlavičku pomocou nej zafixujeme na hornej hrane okna stránky, takže keď sa
+bude rolovať dole, hlavička bude stále vidieť. To je dôležité pre rýchlu
+orientáciu na webe bez nutnosti stále rolovať. Pri dlhých článkoch by to
+pre užívateľov mohlo byť zbytočne zdĺhavé.
+
+Pozíciu určitému elementu nastavujeme pomocou CSS vlastnosti
+position. V HTML máme 4 typy pozícií:
+
+<strong>STATICKÁ POZÍCIA (static)</strong>
+
+Všetky elementy v HTML majú ako predvolenú statickú pozíciu. Element je
+jednoducho zobrazený na tej pozícii, na ktorej je definovaný, a to s ohľadom
+na ostatné elementy na stránke. Všetky naše elementy majú teraz fixnú
+pozíciu, jednoducho povedané zobrazujú sa tam, kde majú 
+
+<strong>RELATÍVNA POZÍCIA (relative)</strong>
+
+Ak nastavíme elementu relatívnu pozíciu, môžeme mu v CSS definovať
+vlastnosti left, right, top a
+bottom. Tu môžeme pomocou pixelov alebo percent nastaviť, o
+koľko má byť element posunutý oproti svojej originálnej pozícii. Ak
+elementu napr. nastavíme ľavú pozíciu na 20px, zobrazí sa
+20px napravo od svojho pôvodného miesta.
+
+Ak je vpravo od tohto elementu iný element, tak sa tento iný element
+neposunie, ale bude elementom zľava prekrytý. To, ktorý element bude
+v popredí, môžeme nastaviť pomocou vlastnosti z-index. Elementy
+vyššie majú vyššie číselné hodnoty (napríklad
+z-index: 20;), elementy nižšie majú hodnoty nižšie.
+
+<strong>ABSOLÚTNA POZÍCIA (absolute)</strong>
+
+Absolútna pozícia zobrazí element na daných súradniciach bez ohľadu na
+jeho originálnu pozíciu v HTML obsahu. Ak teda nastavíme elementu
+left na 20px, zobrazí sa element 20px od
+ľavého okraja okna. Ak sú pod ním iné elementy, prekryje ich.
+
+<strong>FIXNÁ POZÍCIA (fixed)</strong>
+
+Fixná pozícia funguje podobne ako pozícia absolútna, ale súradnice sa
+počítajú v oblasti, ktorá je vidieť. Rolovanie scrollbarom teda nemá na
+také prvky vplyv, zostávajú na svojom mieste, aj keď sa ostatný obsah
+posúva.
+
+Práve túto pozíciu použijeme pre našu hlavičku. Presunieme sa k nášmu
+selektoru body > header, v ktorom pridáme vlastnosť
+position s hodnotou fixed:
+
+body > header {
+    height: 100px;
+    width: 100%;
+    background: #00386B;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+}
+
+Hlavičke sme taktiež nastavili z-index na hodnotu
+1, vďaka čomu sa hlavička bude zobrazovať nad všetkými
+ostatnými elementmi. Ak by sme z-index nestanovili, prekrýval by
+nám v tomto prípade hlavičku náš obrázok. Ďalej sme potom pridali aj
+vlastnosť top s hodnotou 0, aby sa hlavička
+zobrazovala vždy na hornej hrane okna stránky.
+
+Menu zostáva na svojom mieste, aj keď stránkou rolujeme.
+
+Pozicionovanie používajte len v prípade, že viete, čo
+robíte. Spravidla sa používa len veľmi zriedka a je veľkou chybou
+zostavovať web zadávaním desiatok absolútnych súradníc.
+
+Týmto sme náš web v podstate dokončili. Poďme si však ešte prebrať a
+osvetliť niektoré aspekty štýlovania, ktoré sme v predchádzajúcich
+lekciách iba načali.
+
+<strong>PODPORA RÔZNYCH ROZLÍŠENÍ</strong>
+
+Je samozrejme dosť nereálne, aby sme vytvorili riešenie na mieru pre
+všetky typy zariadení, a teda pre všetky možné rozlíšenia, ktoré dnes
+existujú. Náš prvý web však vyvíjame primárne pre desktop. Klasické
+rozlíšenie monitora je dnes 1024x768 a vyššie.
+
+Tvorbe responzívnych stránok, teda tých, ktoré sa dokážu
+prispôsobovať rôznym veľkostiam displejov, sa venuje kurz Responzívny webdesign.
+
+Ak by sme však nechali, aby sa obsah článku roztiahol cez celú šírku
+monitora, používateľ by nám asi nepoďakoval - a ani by to nevyzeralo pekne.
+Väčšinou sa preto odporúča nastaviť maximálnu šírku na
+960px a obsah vycentrovať. My sme tak už urobili, keď sme
+elementu < article > v CSS nastavili toto:
+
+article {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 50px 50px 10px 50px;
+}
+
+Upravíme si ešte selektor body, v ktorom telu stránky
+< body > nastavíme:
+
+
+	padding na 100 pixelov zhora, aby nám hlavička
+	neprekrývala jeho obsah,
+
+	min-width na 960 pixelov, aby sa nám stránka
+	nedeformovala pri prílišnom zmenšení.
+
+
+body {
+    font: 14px "Poppins";
+    background: #f9f9f9;
+    color: #414042;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 100px 0px 0px 0px;
+    min-width: 960px;
+}
+                </pre>
+                </td>
+            </tr>
+            <td><strong>HTML ENTITY</strong></td>
+            <tr>
+                <td></td>
+                <td>& amp;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>ampersand</td>
+                <td>označuje znak & (píše sa do tagu napr. & amp;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& lt;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>less than</td>
+                <td>označuje znak < (píše sa do tagu napr. & lt;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& gt;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>greater than</td>
+                <td>označuje znak > (píše sa do tagu napr. & gt;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8364;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>euro</td>
+                <td>označuje znak € (píše sa do tagu napr. & euro;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& quot;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>double quote</td>
+                <td>označuje znak " (píše sa do tagu napr. & quot;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #39;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>single quote</td>
+                <td>označuje znak ' (píše sa do tagu napr. & apos;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #160;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>non-breaking space</td>
+                <td>označuje medzeru, ktorá sa nezlúči s ďalšou medzerou (píše sa do tagu napr. & nbsp;)</td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #169;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>copyright</td>
+                <td>označuje znak © (píše sa do tagu napr. & copy;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #174;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>registered trademark</td>
+                <td>označuje znak ® (píše sa do tagu napr. & reg;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8482;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>trademark</td>
+                <td>označuje znak ™ (píše sa do tagu napr. & trade;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8592;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>left arrow</td>
+                <td>označuje znak ← (píše sa do tagu napr. & #8592;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8594;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>right arrow</td>
+                <td>označuje znak → (píše sa do tagu napr. & #8594;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8593;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>up arrow</td>
+                <td>označuje znak ↑ (píše sa do tagu napr. & #8593;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8595;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>down arrow</td>
+                <td>označuje znak ↓ (píše sa do tagu napr. & #8595;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8212;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>em dash</td>
+                <td>označuje dlhú pomlčku (píše sa do tagu napr. & #8212;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8211;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>en dash</td>
+                <td>označuje krátku pomlčku (píše sa do tagu napr. & #8211;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #8230;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>ellipsis</td>
+                <td>označuje tri bodky (píše sa do tagu napr. & #8230;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #9679;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>bullet</td>
+                <td>označuje bodku (píše sa do tagu napr. & #9679;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #9675;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>white circle</td>
+                <td>označuje biely kruh (píše sa do tagu napr. & #9675;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #9679;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>black circle</td>
+                <td>označuje čierny kruh (píše sa do tagu napr. & #9679;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #10003;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>check mark</td>
+                <td>označuje začiarknutie (píše sa do tagu napr. & #10003;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #10008;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>cross mark</td>
+                <td>označuje krížik (píše sa do tagu napr. & #10008;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #10024;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>star</td>
+                <td>označuje hviezdičku (píše sa do tagu napr. & #10024;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #10084;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>heart</td>
+                <td>označuje srdiečko (píše sa do tagu napr. & #10084;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #128512;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>smiley face</td>
+                <td>označuje smajlíka (píše sa do tagu napr. & #128512;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #128578;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>frowning face</td>
+                <td>označuje smutného smajlíka (píše sa do tagu napr. & #128578;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #128640;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>rocket</td>
+                <td>označuje raketu (píše sa do tagu napr. & #128640;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #128640;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>globe</td>
+                <td>označuje zemeguľu (píše sa do tagu napr. & #128640;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #128640;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>flag</td>
+                <td>označuje vlajku (píše sa do tagu napr. & #128640;)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>& #128640;</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>bell</td>
+                <td>označuje zvonček (píše sa do tagu napr. & #128640;)</td>
+            </tr>
+               <td><strong>PÍSMO</strong></td>
+            <tr>
+                <td></td>
+                <td>< PRE ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>preformatted text</td>
+                <td>označuje predformátovaný text ktorý sa zobrazí tak ako sme ho napísali, a nevymaže tabulátory a preskočenie 
+                </br>z riadku do riadku</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< DIV ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>division</td>
+                <td>označuje sekciu stránky (najskôr sa píše DIVISION, potom sa do sekcie vkladá obsah)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< P ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>paragraph</td>
+                <td>označuje odsek textu (najskôr sa píše PARAGRAPH, potom sa do odseku vkladá text)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< B ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>bold</td>
+                <td>označuje tučný text</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< I ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>italic</td>
+                <td>označuje kurzívu</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< U ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>underline</td>
+                <td>označuje podčiarknutý text</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< STRONG ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>strong</td>
+                <td>označuje dôležitý text (tučný) podstatný pre SEO</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< EM ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>emphasis</td>
+                <td>označuje dôležitý text (kurzíva) podstatný pre SEO</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< SMALL ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>small</td>
+                <td>označuje menší text</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< SUB ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>subscript</td>
+                <td>označuje dolný index (napr. chemické vzorce)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< SUP ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>superscript</td>
+                <td>označuje horný index (napr. mocniny)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< STRIKE ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>strike</td>
+                <td>označuje prečiarknutý text</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< CODE ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>code</td>
+                <td>označuje kód (napr. programovací jazyk)</td>
+            </tr>
+                <td><strong>TABUĽKY</strong></td>
+            <tr>
+                <td></td>
+                <td>< TABLE ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>table</td>
+                <td>označuje tabuľku</td>
+            </tr>
+
+                <td></td>
+                <td>< TR ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>table row</td>
+                <td>označuje riadok tabuľky (najskôr sa píše TABLE ROW, potom sa do riadku vkladajú bunky)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< TD ></td>
+                <td class="skuska">ÁNO</td>
+                <td>NIE</td>
+                <td>table data</td>
+                <td>označuje bunku tabuľky (najskôr sa píše TABLE DATA, potom sa do bunky vkladá obsah)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td width="8%">< THEAD ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>table header</td>
+                <td>označuje hlavičku tabuľky (najskôr sa píše TABLE HEAD, potom sa do hlavičky vkladá obsah aby bola tabuľka prehľadnejšia)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< TBODY ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>table body</td>
+                <td>označuje telo tabuľky do ktorého sa vkladá obsah tabuľky</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< TFOOT ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>table footer</td>
+                <td>označuje pätu tabuľky do ktorej sa vkladajú súhrnné informácie o tabuľke</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>BORDER</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>border</td>
+                <td>označuje ohraničenie tabuľky v pixeloch (píše sa do tagu < table border="10" >(akože 10 pixelov hrubé steny tabuľky) </td>
+            <tr>
+            <tr>
+                <td></td>
+                <td>COLSPAN</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>colspan</td>
+                <td>označuje počet stĺpcov, ktoré má bunka zaberať (píše sa do tagu < td colspan="2" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>ROWSPAN</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>rowspan</td>
+                <td>označuje počet riadkov, ktoré má bunka zaberať (píše sa do tagu < td rowspan="2" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>ALIGN</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>align</td>
+                <td>označuje zarovnanie obsahu bunky (píše sa do tagu < td align="center" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>VALIGN</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>valign</td>
+                <td>označuje zvislé zarovnanie obsahu bunky (píše sa do tagu < td valign="top" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>WIDTH</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>width</td>
+                <td>označuje šírku tabuľky, riadku alebo bunky (píše sa do tagu < table width="100%" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>HEIGHT</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>height</td>
+                <td>označuje výšku tabuľky, riadku alebo bunky (píše sa do tagu < table height="100px" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>CAPTION</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>caption</td>
+                <td>označuje popis tabuľky (píše sa do tagu < table caption="Popis tabuľky" >)</td>
+            </tr>
+            <tr>
+                <td><strong>ZOZNAMY</strong>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< UL ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>unordered list</td>
+                <td>označuje neusporiadaný zoznam (najskôr sa píše UNORDERED LIST, potom sa do zoznamu vkladajú položky)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< OL ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>ordered list</td>
+                <td>označuje usporiadaný zoznam (najskôr sa píše ORDERED LIST, potom sa do zoznamu vkladajú položky)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< DL ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>definition list</td>
+                <td>označuje definovaný zoznam(slovníček pojmov) a obsahuje 2 typi položiek: < dt > (definovaný termín) a < dd > (definícia termínu)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< LI ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>list item</td>
+                <td>pridáva sa do zoznamov UL a OL</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< DT ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>definition term</td>
+                <td>pridáva sa do definovaného zoznamu DL</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< DD ></DD></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>definition description</td>
+                <td>pridáva sa do definovaného zoznamu DL</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>REVERSED</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>reversed</td>
+                <td>označuje, že usporiadaný zoznam OL bude zoradený v opačnom poradí (píše sa do tagu < ol reversed="reversed" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>START</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>start</td>
+                <td>označuje, od ktorého čísla sa má začať usporiadaný zoznam OL (píše sa do tagu < ol start="5" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>TYPE</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>type</td>
+                <td>označuje typ zoznamu (píše sa do tagu < ol type="(a/A/I/i)" > alebo < ul type="circle" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>VALUE</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>value</td>
+                <td>označuje hodnotu položky v usporiadanom zozname OL (píše sa do tagu < li value="5" >)</td>
+            </tr>
+            <tr>
+                <td><strong>OBRÁZKY</strong></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>< IMG src="xxx" ></td>
+                <td>ÁNO</td>
+                <td>NIE</td>
+                <td>image</td>
+                <td>označuje obrázok (píše sa do tagu < img src="https://www.itnetwork.sk/images/5/html/html_static_web_eng/avatar.jpg" width="30%" height="30%" alt="Príklad obrázka" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>ALT</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>alt</td>
+                <td>označuje alternatívny text pre obrázok (píše sa do tagu < img src="..." alt="Príklad obrázka" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>WIDTH</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>width</td>
+                <td>označuje šírku obrázka v pixeloch alebo percentách (píše sa do tagu < img src="..." width="30%" >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>HEIGHT</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>height</td>
+                <td>označuje výšku obrázka v pixeloch alebo percentách (píše sa do tagu < img src="..." height="30%" >)</td>
+            </tr>
+                <td><strong>CSS ŠTÝLOVANIE</strong></td>
+            <tr>
+                <td></td>
+                <td>< LINK ></td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>link</td>
+                <td>označuje prepojenie na externý CSS súbor (píše sa do odseku HEAD < link rel="stylesheet" href="style.css" >)</td>
+            </tr>
+            <tr>
+                <td>CSS SELEKTORY</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>selektor skupiny atrubútov(napr. h1-h6/body/...)</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>napr. h1, až h6</td>
+                <td>označuje HTML elementy, na ktoré sa aplikuje CSS štýl (píše sa do tagu napr. < h1 >)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>selektor triedy(napr. .skuska)</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>.class</td>
+                <td>označuje triedu, ktorá sa aplikuje na HTML elementy (píše sa do tagu napr. < p class="skuska" > 
+                    <b>bez bodky</b>) Triedu si môžeme pomenovať, ako sa nám zapáči, ale mali by sme používať len malé písmená a pomlčky.
+                    Jeden element môžeme zaradiť hneď do niekoľkých tried
+                    naraz. Jednoducho ich názvy oddelíme v atribúte class
+                    medzerou.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>selektor ID(napr. #skuska)</td>
+                <td>NIE</td>
+                <td>ÁNO</td>
+                <td>#id</td>
+                <td>označuje ID, ktoré sa aplikuje na HTML elementy (píše sa do tagu napr. < p id="skuska" >)
+                </br>Rozdiel oproti CLASS je ten že ID môže byť v HTML dokumente iba jeden, kdežto určitú CLASS sme mohli
+                priradiť ľubovoľnému počtu elementov.
+                </br>ID sa teda využíva na štýlovanie unikátnych prvkov na stránke napr.: LOGO ktoré je na každej stránke len jedno</td>
+            <tr>
+                <td>CSS VLASTNOSTI</td>
+            </tr>
+            <tr>
+                <td>Písmo</td>
+                <td><strong><u>TEXT-ALIGN</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>text-align</td>
+                <td>zarovnanie obsahu: LEFT/RIGHT/CENTER/JUSTIFY(zarovnanie do bloku)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>VERTICAL-ALIGN</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>vertical-align</td>
+                <td>
+                    Určuje zvislé zarovnanie obsahu v rámci bunky tabuľky alebo inline/blokovo-inline elementov (napr. obrázok v texte).
+                    <br>
+                    <strong>Použitie:</strong> Najčastejšie sa používa v tabuľkách na zarovnanie obsahu buniek (<code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>), alebo pri obrázkoch a texte v jednom riadku.
+                    <br>
+                    <strong>Príklady hodnôt:</strong> <code>top</code>, <code>middle</code>, <code>bottom</code>, <code>baseline</code>
+                    <br>
+                    <strong>Príklad:</strong>
+                    <pre><code>&lt;td style="vertical-align: top;"&gt;Text hore v bunke&lt;/td&gt;</code></pre>
+                    <pre>#skills td {
+    width: 25%;
+    padding: 10px;
+    vertical-align: top;
+}</pre>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>COLOR</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>color</td>
+                <td>farba textu (píše sa do SELEKTORU) napr.: h1...h6 
+
+                </br><code>h1 {
+                </br>   color: blue;
+                </br>   } style="color: blue;" >)</code></p>
+                </br><strong>textovou konštantou / tromi hodnotami RGB / jednou hodnotou v šestnástkovej sústave</strong></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>FAREBNÁ KONŠTANTA</td>
+                <td></td>
+                <td></td>
+                <td>color: xxx;
+                <td>Máme ich k dispozícii 16, sú to: <strong>aqua,
+                    black, blue, fuchsia, gray,
+                    green, lime, maroon, navy,
+                    olive, purple, red, silver,
+                    teal, white a yellow.</strong>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>RGB</td>
+                <td></td>
+                <td></td>
+                <td><code>color: rgb(0, 0, 0);</code></td>
+                <td>Čísla v rozsahu 0-255 určujú intenzitu červenej, zelenej a modrej zložky farby.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>HEX</td>
+                <td></td>
+                <td></td>
+                <td><code>color: #000000;</code></td>
+                <td>Šestnástková hodnota farby, kde prvé dva znaky určujú červenú, ďalšie dva zelenú a posledné dva modrú zložku. Hodnota každého dvojčísla je od 0-9 A-F</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>FONT-FAMILY</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>font-family</td>
+                <td>písmo, ktoré sa použije na text (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br><code>h1, h2, h3 {
+                </br>   font-family: Arial, sans-serif;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>FONT-SIZE</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>font-size</td>
+                <td>veľkosť písma, ktorá sa použije na text (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br>veľkosť písma sa udáva v px
+                </br>em - relatívna jednotka, ktorá sa odvíja od veľkosti písma nadradeného elementu
+                </br>rem - funguje úplne rovnako ako em. Berie sa však relatívne k veľkosti písmena M vo fonte
+                    elementu < html >, nie v nadradenom elemente
+                </br><code>h1, h2, h3 {
+                </br>   font-size: 20px;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>TEXT-SHADOW</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>text-shadow</td>
+                <td>tieň textu, ktorý sa použije na text (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br><code>text-shadow: 3px 3px 7px #666666;</code>
+                </br>Prvé 2 parametre sú pozície tieňa kde hovoríme že leží 3 pixely napravo od textu a 3px dole, 
+                    tretí parameter je rozostrenie tieňa a štvrtý parameter je farba tieňa
+                </br>Tieňov môže mať písmo aj viac ako len jeden. Definície viacerých tieňov píšeme do vlastnosti 
+                    text-shadow, akurát ich oddeľujeme čiarkou, neskôr zadaný tieň sa vykreslí hlbšie ako skôr zadaný tieň</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>FONT-WEIGHT</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>font-weight</td>
+                <td>hrúbka písma, ktorá sa použije na text (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br><code>h1, h2, h3 {
+                </br>   font-weight: bold;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>FONT-STYLE</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>font-style</td>
+                <td>štýl písma, ktorý sa použije na text (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br><code>h1, h2, h3 {
+                </br>   font-style: italic;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>TEXT-TRANSFORM</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>text-transform</td>
+                <td>určuje, ako sa má text zobraziť (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br><code>h1, h2, h3 {
+                </br>   text-transform: uppercase;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>WEB SAFE FONTY</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>web safe fonts</td>
+                <td>písma, ktoré sú dostupné na väčšine operačných systémov a prehliadačov, napr.: <b>Arial, Verdana, Times New Roman, 
+                    Georgia, Courier New, Tahoma, Trebuchet MS, Comic Sans MS, Arial Black, Impact, Lucida Console, Tahoma</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>GOOGLE FONTS</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>google fonts</td>
+                <td>písma, ktoré sú dostupné na stránke <a href="https://fonts.google.com/" target="_blank">Google Fonts</a> a 
+                    môžu byť použité v HTML dokumente pomocou tagu <ul>< link rel="stylesheet" href="
+                    https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" ></ul>
+                </br>alebo<ul>CSS súboru ktorý obsahuje príkaz import napr.:
+                </br><code>@import url('
+                    https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');</code></ul>
+                    alebo <ul>stiahnuté písmo priamo na našu webovú stránku napr.:
+                    </br><code>@font-face {
+                    </br>font-family: Poppins;
+                    </br>src: url(fonts/Poppins-Regular.ttf);
+                    </br>font-weight: normal;
+                    </br>}
+                    </br>@font-face {
+                    </br>font-family: Poppins;
+                    </br>src: url(fonts/Poppins-ExtraBold.ttf);
+                    </br>font-weight: bold;
+                    </br>}</code></ul></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>TEXT-DECORATION</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>text-decoration</td>
+                <td>určuje dekoráciu textu (píše sa do SELEKTORU) napr.: h1...h6 alebo body
+                </br><code>h1, h2, h3 {
+                </br>   text-decoration: underline; (alebo overline, line-through, none)
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td><strong>OBRÁZKY CSS</strong></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BACKGROUND-IMAGE</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>background-image</td>
+                <td>určuje obrázok, ktorý sa použije ako pozadie (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   background-image: url('obrazok.jpg');
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BACKGROUND-COLOR</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>background-color</td>
+                <td>určuje farbu pozadia (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   background-color: #f0f0f0;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BACKGROUND-POSITION</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>background-position</td>
+                <td>určuje pozíciu obrázka na pozadí (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   background-position: center;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BACKGROUND-SIZE</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>background-size</td>
+                <td>určuje veľkosť obrázka na pozadí (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   background-size: cover;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>FLOAT</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>float</td>
+                <td>určuje, ako sa má element "plávať" okolo iných elementov (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   float: left;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>PADDING</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>padding</td>
+                <td><b>určuje vnútorné odsadenie elementu (píše sa do SELEKTORU) napr.: body</b>
+                </br><code>body {
+                </br>   padding: 10px;
+                </br>   }</code>
+                </br><b>môže byť aj špecifikované pre každú stranu zvlášť napr.:</b>
+                </br><code>body {
+                </br>   padding-top: 10px;
+                </br>   padding-right: 20px;
+                </br>   padding-bottom: 10px;
+                </br>   padding-left: 20px;
+                </br>   }</code>
+                </br><b>alebo skrátene pre všetky štyri strany naraz napr.:</b>
+                </br><code>body {
+                </br>   padding: 10px 20px 10px 20px
+                </br>   }</code>
+                </br><b>alebo skrátene pre všetky štyri strany rovnaké napr.:</b>
+                </br><code>body {
+                </br>   padding: 10px;
+                </br>   }</code>
+            </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>CLEAR</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>clear</td>
+                <td>určuje, ako sa má element "vyčistiť" od plávajúcich elementov (píše sa do SELEKTORU). Niekedy sa môže stať, 
+                    že text je kratší než výška obrázku. Obrázok potom môže začať obtekať ďalší element, ktorý je za textom a 
+                    stránka by sa nám rozhodila.
+                </br>Na tento účel slúži vlastnosť clear, ktorá sa píše do SELEKTORU napr.: body
+                </br><code>body {
+                </br>   clear: both;
+                </br>   }</code>
+                </br><b>clear môže mať hodnotu:</b>
+                </br><code>left</code> - element sa vyčistí od ľavých plávajúcich elementov
+                </br><code>right</code> - element sa vyčistí od pravých plávajúcich elementov
+                </br><code>both</code> - element sa vyčistí od ľavých aj pravých plávajúcich elementov
+                </br><code>none</code> - element sa nevyčistí od plávajúcich elementov
+                </br><code>inherit</code> - element zdedí hodnotu clear z nadradeného elementu
+                </br><b>clear môže byť aj viacero, oddelené čiarkou</b>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>FILTER</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>filter</td>
+                <td>určuje filter, ktorý sa použije na element (píše sa do SELEKTORU) a môže mať hodnutu v % alebo od 0 až 1 
+                    kde 1 znamená 100% podľa toho ako chceme obrázok sčernobieliť alebo ako silný filter chceme na daný 
+                    element použiť napr.: body
+                </br><code>body {
+                </br>   filter: grayscale(100%);
+                </br>   }</code>
+                </br><b>filter môže byť aj viacero, oddelené čiarkou napr.:</b>
+                </br><code>body {
+                </br>   filter: grayscale(100%), blur(5px);
+                </br>   }</code>
+                </br><b>filter môže byť aj viacero, oddelené medzerou napr.:</b>
+                </br><code>body {
+                </br>   filter: grayscale(100%) blur(5px);
+                </br>   }</code>
+                </br><b>filter môže byť aj viacero, oddelené medzerou a čiarkou napr.:</b>
+                </br><code>body {
+                </br>   filter: grayscale(100%) blur(5px), brightness(0.5);
+                </br>   }</code>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>MARGIN</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>margin</td>
+                <td>určuje vonkajšie odsadenie elementu (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   margin: 10px;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BORDER</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>border</td>
+                <td>určuje ohraničenie elementu (píše sa do SELEKTORU) napr.: 
+                </br><code>border: 3px solid green;</code>
+                </br>border-width: 3px; - šírka rámčeka: 3px
+            	</br>border-style: solid; - štýl čiary: plný
+	            </br>border-color: green; - farba rámčeka: zelená
+                </br><b>alebo</b>
+                </br><code>body {
+                </br>   border: 1px solid #000;
+                </br>   }</code>
+                </br><b>Štýl čiary môže mať hodnotu:</b>
+                </br>none - bez rámčeka
+                </br>hidden - rámček sa nevykreslí, ale zaberá miesto
+                </br>dotted - bodkovaný
+                </br>dashed - čiarkovaný
+                </br>solid - plná čiara
+                </br>double - dvojitý
+                </br>groove - 3D rámček s efektom groove
+                </br>ridge - 3D rámček s efektom ridge
+                </br>inset - 3D rámček s efektom inset
+                </br>outset - 3D rámček s efektom outset
+                </br>inherit - zdedí štýl čiary rámčeka nadradeného
+                </br>elementu
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BORDER-RADIUS</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>border-radius</td>
+                <td>určuje zaoblenie rohov elementu (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   border-radius: 10px;
+                </br>   }</code>
+                </br>alebo zaguľatenie napríklad iba ľavého horného a pravého dolného rohu by sme nastavili nasledovne:
+                </br><code>body {
+                </br>   border-radius: 10px 0 10px 0;
+                </br>   }</code>
+                </br>alebo zaguľatenie napríklad iba ľavého horného rohu by sme nastavili nasledovne:
+                </br><code>body {
+                </br>   border-radius: 10px 0 0 0;
+                </br>   }</code>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BORDER-COLOR</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>border-color</td>
+                <td>určuje farbu ohraničenia elementu (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   border-color: #000;
+                </br>   }</code></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><strong><u>BOX-SHADOW</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>box-shadow</td>
+                <td>určuje tieň okolo elementu (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   box-shadow: 3px 3px 7px #666666;
+                </br>   }</code></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>BOX-SIZING</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>box-sizing</td>
+                <td>určuje, ako sa počíta veľkosť elementu (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   box-sizing: border-box;
+                </br>   }</code>
+                </br>
+                </br>alebo <code>box-sizing: content-box;</code>
+                </br>alebo <code>box-sizing: inherit;</code>
+                </br><b>Hodnoty box-sizing môžu byť:</b>
+                </br><code>content-box</code> - veľkosť elementu sa počíta bez ohraničenia a vnútorného odsadenia
+                </br><code>border-box</code> - veľkosť elementu sa počíta s ohraničením a vnútorným odsadením
+                </br><code>inherit</code> - element zdedí hodnotu box-sizing z nadradeného elementu</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong><u>OPACITY</u></strong></td>
+                <td></td>
+                <td></td>
+                <td>opacity</td>
+                <td>určuje priehľadnosť elementu (píše sa do SELEKTORU) napr.: body
+                </br><code>body {
+                </br>   opacity: 0.5;
+                </br>   }</code></td>
+            </tr>
+            <td><strong>ŠTÝLOVANIE HLAVIČKY</strong></td>
+            <tr>
+                <td></td>
+                <td>HEADER</td>
+                <td></td>
+                <td></td>
+                <td>body > header</td>
+                <td>Pomocou height a width hlavičke nastavujeme výšku na 100px a šírku na 100% šírky elementu, v ktorom je 
+                    obsiahnutá. Hlavičku tak budeme mať roztiahnutú cez celú stránku. Vlastnosťami background a color dávame 
+                    farbu pozadiu a písmu.</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>FLEXBOX</td>
+                <td></td>
+                <td></td>
+                <td>flexbox</td>
+                <td>Jedná sa o jednorozmernú "prepravku", ktorá nám umožňuje skladať položky nejakého elementu za seba rieši 
+                    rozloženie iba v jednom smere - buď do riadku, alebo do stĺpca..
+                <pre>Aby sme mohli umiestniť elementy v hlavičke (logo a navigačné menu) vedľa seba, tak pridáme vlastnosť 
+                    display s hodnotou flex. Z hlavičky sa tak stane práve flexbox:
+                <code>body > header {
+                                    height: 100px;
+                                    width: 100%;
+                                    background: #00386B;
+                                    color: white;
+                                    display: flex;
+                                    }</code></pre></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>JUSTIFY-CONTENT</td>
+                <td></td>
+                <td></td>
+                <td>justify-content</td>
+                <td>Vďaka tomu, že hlavička je teraz flexboxom, tak jej môžeme nastaviť vlastnosť justify-content. Táto 
+                    vlastnosť definuje, aký veľký je priestor medzi položkami a okolo nich. V našom prípade bude riešiť 
+                    priestor napravo a naľavo od každej položky flexboxu, pretože my máme nastavený smer nášho flexboxu na 
+                    riadky (predvolená hodnota).
+                </br>Tejto vlastnosti môžeme nastaviť vcelku veľa hodnôt. My využijeme hodnotu <code>space-evenly</code>, 
+                    ktorá zaistí, že každá položka bude mať okolo seba rovnaký priestor</td>
+            </tr>
+        </tbody>
+    </table>
+    </body>
+</html>

@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Python — rýchla tabuľka pre začiatočníkov</title>
+  <style>
+    :root{
+      --bg:#f7f9fb;
+      --card:#ffffff;
+      --accent:#2563eb;
+      --muted:#6b7280;
+      --stripe:#f1f5f9;
+    }
+    body{
+      font-family: Inter, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      margin:0;
+      padding:24px;
+      color:#0f172a;
+      line-height:1.4;
+    }
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+    }
+    header{
+      margin-bottom:18px;
+    }
+    h1{ margin:0 0 6px 0; font-size:20px; color:var(--accent); }
+    p.lead{ margin:0;color:var(--muted) }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:var(--card);
+      box-shadow:0 6px 18px rgba(16,24,40,0.06);
+      overflow:hidden;
+      margin-top:18px;
+      font-size:14px;
+    }
+    thead th{
+      text-align:left;
+      padding:12px 16px;
+      background:linear-gradient(90deg, rgba(37,99,235,0.06), rgba(37,99,235,0.02));
+      color:var(--accent);
+      font-weight:600;
+      border-bottom:1px solid #e6eefc;
+      position:sticky;
+      top:0;
+      z-index:2;
+    }
+    tbody td{
+      padding:12px 16px;
+      vertical-align:top;
+      border-bottom:1px solid #eef2f7;
+    }
+    tbody tr:nth-child(even){ background:var(--stripe); }
+    tr.category td{
+      background:#eef6ff;
+      color:var(--accent);
+      font-weight:700;
+      border-bottom:1px solid #dbeafe;
+    }
+    code{ background:#0f172a08; padding:2px 6px; border-radius:4px; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:13px; }
+    .muted{ color:var(--muted); font-size:13px; }
+    .example{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; background:#0b122a06; padding:8px; display:block; border-radius:6px; margin-top:6px; white-space:pre; font-size:13px; }
+    footer{ margin-top:12px;color:var(--muted); font-size:13px; }
+    @media (max-width:780px){
+      thead th:nth-child(3), tbody td:nth-child(3){ display:none; } /* hide long description on small screens */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Python — rýchla tabuľka príkazov a konštrukcií</h1>
+      <p class="lead">Logicky usporiadané vysvetlenia pre začiatočníkov: syntax, popis a krátky príklad.</p>
+    </header>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Príkaz / Konštrukcia</th>
+          <th>Syntax</th>
+          <th>Popis</th>
+          <th>Krátky príklad</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Základy -->
+        <tr class="category"><td colspan="4">Základy</td></tr>
+
+        <tr>
+          <td><strong>Komentár</strong></td>
+          <td><code># komentár</code></td>
+          <td>Jednoradkový komentár — ignorovaný interpreterom; vysvetlenie kódu pre čitateľa.</td>
+          <td class="example"># Toto je komentár</td>
+        </tr>
+
+        <tr>
+          <td><strong>Výpis</strong></td>
+          <td><code>print(obj)</code></td>
+          <td>Vypíše text alebo hodnotu na štandardný výstup (konzola).</td>
+          <td class="example">print("Ahoj, svet!")</td>
+        </tr>
+
+        <tr>
+          <td><strong>Vstup</strong></td>
+          <td><code>input(prompt)</code></td>
+          <td>Prečíta text od používateľa ako reťazec.</td>
+          <td class="example">name = input("Meno: ")</td>
+        </tr>
+
+        <!-- Premenné a typy -->
+        <tr class="category"><td colspan="4">Premenné a dátové typy</td></tr>
+
+        <tr>
+          <td><strong>Priradenie</strong></td>
+          <td><code>x = 5</code></td>
+          <td>Vytvorenie/aktualizácia premennej. Python je dynamicky typovaný.</td>
+          <td class="example">x = 10<br>y = "text"</td>
+        </tr>
+
+        <tr>
+          <td><strong>Typy</strong></td>
+          <td><code>int, float, str, bool, list, tuple, dict, set</code></td>
+          <td>Základné dátové typy. <span class="muted">Používaj vhodný typ podľa potreby.</span></td>
+          <td class="example">a = 3       # int<br>b = 3.5     # float<br>c = "ahoj"  # str</td>
+        </tr>
+
+        <tr>
+          <td><strong>Konverzia typov</strong></td>
+          <td><code>int(x), float(x), str(x), list(x)</code></td>
+          <td>Prevody medzi typmi; pozor na chyby pri neplatnom vstupe.</td>
+          <td class="example">n = int("5")  # 5</td>
+        </tr>
+
+        <!-- Operátory -->
+        <tr class="category"><td colspan="4">Operátory</td></tr>
+
+        <tr>
+          <td><strong>Aritmetické</strong></td>
+          <td><code>+, -, *, /, //, %, **</code></td>
+          <td>Sčítanie, odčítanie, násobenie, delenie (float), celočíselné delenie, zvyšok, mocnina.</td>
+          <td class="example">5 ** 2  # 25<br>7 // 3  # 2</td>
+        </tr>
+
+        <tr>
+          <td><strong>Porovnávacie</strong></td>
+          <td><code>==, !=, &lt;, &gt;, &lt;=, &gt;=</code></td>
+          <td>Vrátia bool výsledok (True/False) pre porovnania hodnôt.</td>
+          <td class="example">3 &lt; 5  # True</td>
+        </tr>
+
+        <tr>
+          <td><strong>Logické</strong></td>
+          <td><code>and, or, not</code></td>
+          <td>Logické operácie používané v podmienkach.</td>
+          <td class="example">a and b<br>not cond</td>
+        </tr>
+
+        <!-- Riadiace štruktúry -->
+        <tr class="category"><td colspan="4">Riadiace štruktúry</td></tr>
+
+        <tr>
+          <td><strong>If / elif / else</strong></td>
+          <td><code>if podmienka:<br>&nbsp;&nbsp;...<br>elif iná:<br>&nbsp;&nbsp;...<br>else:</code></td>
+          <td>Vyhodnocuje vetvenie programu podľa podmienok.</td>
+          <td class="example">if x &gt; 0:\n  print("kladné")\nelse:\n  print("nie kladné")</td>
+        </tr>
+
+        <tr>
+          <td><strong>For</strong></td>
+          <td><code>for item in iterable:</code></td>
+          <td>Iteruje cez sekvenciu (list, tuple, string, range, ...).</td>
+          <td class="example">for i in range(3):\n  print(i)</td>
+        </tr>
+
+        <tr>
+          <td><strong>While</strong></td>
+          <td><code>while podmienka:</code></td>
+          <td>Cyklicky vykonáva blok kódu kým je podmienka True.</td>
+          <td class="example">i = 0\nwhile i &lt; 3:\n  i += 1</td>
+        </tr>
+
+        <tr>
+          <td><strong>Break / Continue / Pass</strong></td>
+          <td><code>break, continue, pass</code></td>
+          <td><strong>break</strong> ukončí slučku; <strong>continue</strong> preskočí iteráciu; <strong>pass</strong> nič nerobí (placeholder).</td>
+          <td class="example">for x in t:\n  if x==0: break\n  if x&lt;0: continue</td>
+        </tr>
+
+        <!-- Funkcie -->
+        <tr class="category"><td colspan="4">Funkcie</td></tr>
+
+        <tr>
+          <td><strong>Definícia funkcie</strong></td>
+          <td><code>def name(params):</code></td>
+          <td>Vytvorenie znovupoužiteľného bloku kódu. Funkcia môže vracať hodnotu cez <code>return</code>.</td>
+          <td class="example">def add(a,b):\n  return a+b\nprint(add(2,3))</td>
+        </tr>
+
+        <tr>
+          <td><strong>Lambda</strong></td>
+          <td><code>lambda x: x*2</code></td>
+          <td>Anonymná (krátka) funkcia, vhodná pre krátke jednorazové použitia.</td>
+          <td class="example">d = list(map(lambda x: x*2, [1,2,3]))</td>
+        </tr>
+
+        <!-- Moduly a import -->
+        <tr class="category"><td colspan="4">Moduly a balíky</td></tr>
+
+        <tr>
+          <td><strong>Import</strong></td>
+          <td><code>import modul<br>from modul import name</code></td>
+          <td>Načítanie knižníc (modulov). Odporúča sa používať explicitné importy.</td>
+          <td class="example">import math\nprint(math.pi)</td>
+        </tr>
+
+        <tr>
+          <td><strong>Vlastné moduly</strong></td>
+          <td><code># súbor utils.py<br>def f(): ...</code></td>
+          <td>Umiestni kód do samostatného súboru a importuj ho v hlavnom skripte.</td>
+          <td class="example"># v main.py\nfrom utils import f\nf()</td>
+        </tr>
+
+        <!-- Výnimky -->
+        <tr class="category"><td colspan="4">Výnimky (chyby)</td></tr>
+
+        <tr>
+          <td><strong>Try / Except / Finally</strong></td>
+          <td><code>try: ...\nexcept ErrorType as e:\n  ...\nfinally:</code></td>
+          <td>Ošetrenie chýb, aby program neskončil neočakávane.</td>
+          <td class="example">try:\n  x = int(input())\nexcept ValueError:\n  print("Neplatné číslo")</td>
+        </tr>
+
+        <tr>
+          <td><strong>Raise</strong></td>
+          <td><code>raise ValueError("msg")</code></td>
+          <td>Vynúti výnimku ručne, používa sa pri kontrole vstupov a chybách.</td>
+          <td class="example">if x&lt;0: raise ValueError("x musí byť >=0")</td>
+        </tr>
+
+        <!-- Práca so súbormi -->
+        <tr class="category"><td colspan="4">Práca so súbormi</td></tr>
+
+        <tr>
+          <td><strong>Otvorenie súboru</strong></td>
+          <td><code>with open("file","r") as f:</code></td>
+          <td>Bezpečný spôsob práce so súbormi — automaticky zatvorí súbor.</td>
+          <td class="example">with open("a.txt","w") as f:\n  f.write("ahoj")</td>
+        </tr>
+
+        <!-- Objektovo orientované -->
+        <tr class="category"><td colspan="4">Triedy a OOP</td></tr>
+
+        <tr>
+          <td><strong>Definícia triedy</strong></td>
+          <td><code>class Name:</code></td>
+          <td>Vytváranie vlastných typov (objektov) s atribútmi a metódami.</td>
+          <td class="example">class Person:\n  def __init__(self,name):\n    self.name = name</td>
+        </tr>
+
+        <tr>
+          <td><strong>Inštancia</strong></td>
+          <td><code>obj = ClassName()</code></td>
+          <td>Vytvorenie konkrétneho objektu z triedy.</td>
+          <td class="example">p = Person("Eva")\nprint(p.name)</td>
+        </tr>
+
+        <!-- Užitečné built-iny a tipy -->
+        <tr class="category"><td colspan="4">Užitečné funkcie / tipy</td></tr>
+
+        <tr>
+          <td><strong>range</strong></td>
+          <td><code>range(start, stop, step)</code></td>
+          <td>Generuje číselnú sekvenciu — efektívne pre cykly.</td>
+          <td class="example">for i in range(5): print(i)</td>
+        </tr>
+
+        <tr>
+          <td><strong>len</strong></td>
+          <td><code>len(obj)</code></td>
+          <td>Vráti dĺžku sekvencie alebo veľkosť kolekcie.</td>
+          <td class="example">len([1,2,3])  # 3</td>
+        </tr>
+
+        <tr>
+          <td><strong>enumerate / zip</strong></td>
+          <td><code>enumerate(iterable), zip(a,b)</code></td>
+          <td>enumerate pridá index; zip spája viac sekvencií dohromady.</td>
+          <td class="example">for i,v in enumerate(items):\n  print(i,v)</td>
+        </tr>
+
+        <tr>
+          <td><strong>List comprehensions</strong></td>
+          <td><code>[x*2 for x in seq if cond]</code></td>
+          <td>Krátky a prehľadný spôsob vytvárania zoznamov.</td>
+          <td class="example">squares = [x*x for x in range(5)]</td>
+        </tr>
+
+        <tr>
+          <td><strong>Docstring</strong></td>
+          <td><code>"""popis funkcie"""</code></td>
+          <td>Popis funkcie/triedy — používa sa pre dokumentáciu (help()).</td>
+          <td class="example">def f():\n  \"\"\"Vysvetlenie co robi funkcia\"\"\"\n  pass</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <footer>
+      <p><strong>Tip:</strong> Ak chceš, môžem túto tabuľku rozšíriť o sekciu s príkladmi úloh (cvičenia), alebo exportovať do tlačiteľnej podoby. Chceš pridať konkrétnu tému?</p>
+    </footer>
+  </div>
+</body>
+</html>

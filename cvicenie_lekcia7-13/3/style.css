@@ -1,0 +1,10 @@
+body {
+    background-image: url('frost_background.jpg');
+    background-size: cover;
+}
+h1 {
+    text-align: center;
+    color: white;
+    text-shadow: 10px 5px 10px #0b0b0b;
+    text-transform: uppercase;
+}

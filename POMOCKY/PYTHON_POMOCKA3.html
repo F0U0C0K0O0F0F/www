@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Python — Interaktívna príručka syntaxov (SK)</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#fff; --accent:#0f62fe; --muted:#6b7280;
+    --code-bg:#f3f4f6; --highlight:#fff59d; --border:#e5e7eb;
+  }
+  body{font-family:Inter, Roboto, "Helvetica Neue", Arial, sans-serif; margin:0; color:#0b1220; background:var(--bg);}
+  .wrap{max-width:1200px;margin:20px auto;padding:18px;}
+  header{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+  h1{margin:0;color:var(--accent);font-size:22px;}
+  p.lead{margin:0;color:var(--muted);font-size:14px;}
+  .controls{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap;}
+  .search{flex:1;min-width:260px;}
+  .search input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);font-size:14px;outline:none;}
+  .btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600;}
+  .btn.ghost{background:#fff;color:var(--accent);border:1px solid #cfe0ff;}
+  .match-count{font-size:13px;color:var(--muted);}
+  .section{margin-top:14px;}
+  .main-collapsible{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(90deg, rgba(15,98,254,0.08), rgba(15,98,254,0.02)); border:1px solid #e0eefc; padding:12px;border-radius:10px;cursor:pointer;}
+  .main-collapsible .title{font-weight:800;color:var(--accent);}
+  .main-collapsible .meta{color:var(--muted);font-size:13px;}
+  .subcontent{display:none;padding:12px;margin-top:6px;background:var(--card);border-radius:10px;border:1px solid #eef2ff;}
+  .subsection{margin:10px 0;border-left:3px solid #eef2ff;padding-left:10px;}
+  .subcollapsible{background:#f8fafc;padding:8px 10px;border-radius:8px;cursor:pointer;border:1px solid #eef2f8;margin-bottom:8px;font-weight:700;}
+  .subcollapsible.active{background:#eef6ff;border-color:#dbeafe;}
+  .items{display:none;}
+  .item{padding:10px;border-radius:8px;background:linear-gradient(180deg,#ffffff,#fbfdff);border:1px solid #eef2f7;margin-bottom:10px;}
+  .item .name{font-weight:800;}
+  .item .translation{color:#334155;}
+  .item .desc{color:var(--muted);margin-top:4px;font-size:14px;}
+  .syntax{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;background:var(--code-bg);padding:6px;border-radius:6px;display:inline-block;}
+  .example{background:#0b122a06;padding:8px;border-radius:6px;margin-top:8px;font-family:ui-monospace, monospace;white-space:pre-wrap;font-size:13px;}
+  .highlight{background:var(--highlight);}
+  footer{margin-top:18px;color:var(--muted);font-size:13px;}
+  @media (max-width:900px){ .main-collapsible{flex-direction:column;align-items:flex-start;gap:6px;} }
+  /* Tlač */
+  @media print{
+    body{background:white;color:black;font-size:12px;}
+    .controls, footer{display:none;}
+    .main-collapsible{background:#eee !important;border:1px solid #bbb;}
+    .subcontent,.item{background:white;border:1px solid #bbb;}
+    @page { size: A4 portrait; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Python — Interaktívna príručka syntaxov (SK)</h1>
+      <p class="lead">Každá položka má formát: <strong>skratka (plný názov)</strong> — <em>slovenský preklad</em>, popis, príklad. Vyhľadávanie otvorí a zvýrazní výsledky.</p>
+      <div class="controls">
+        <div class="search"><input id="search" placeholder="Hľadaj: napr. 'int', 'integer', 'celé číslo', 'with', 'výnimka', 'decorator'..." /></div>
+        <button class="btn" id="expandAll">Expand all</button>
+        <button class="btn ghost" id="collapseAll">Collapse all</button>
+        <div class="match-count" id="matchCount">0 výsledkov</div>
+      </div>
+    </header>
+
+    <main id="content"></main>
+
+    <footer>
+      Tip: Export do PDF cez <strong>Ctrl/Cmd + P</strong> → „Uložiť ako PDF“.  
+      Kód je pripravený tak, aby si ho vedel neskôr rozdeliť na externé CSS/JS bez zmeny obsahu.
+    </footer>
+  </div>
+
+<script>
+/* =========================
+   DÁTA: Syntaxe (výber rozsiahlych a bežne používaných)
+   Polia: section, subsection, name, fullname, translation, description, example, keywords
+   ========================= */
+const SYNTAX = [
+  /* --- KĽÚČOVÉ SLOVÁ (keywords) --- */
+  {section:"Kľúčové slová", subsection:"Logické hodnoty", name:"True", fullname:"boolean literal", translation:"pravdivá hodnota (pravda)", description:"Vstavaná logická hodnota reprezentujúca pravdu.", example:"x = True\nif x:\n  print('pravda')", keywords:"bool boolean literal true"},
+  {section:"Kľúčové slová", subsection:"Logické hodnoty", name:"False", fullname:"boolean literal", translation:"nepravdivá hodnota (nepravda)", description:"Vstavaná logická hodnota reprezentujúca nepravdu.", example:"x = False\nprint(bool(0) == False)", keywords:"bool boolean literal false"},
+  {section:"Kľúčové slová", subsection:"Špeciálne hodnoty", name:"None", fullname:"null object", translation:"žiadna hodnota", description:"Špeciálny objekt reprezentujúci absenciu hodnoty.", example:"result = None\nif result is None:\n  print('nič tu nie je')", keywords:"null none nil empty"},
+
+  {section:"Kľúčové slová", subsection:"Logické operátory", name:"and", fullname:"logical conjunction", translation:"logická konjunkcia (a)", description:"Vyhodnotí sa len toľko operandov, koľko treba (short-circuit). Vráti poslednú vyhodnotenú hodnotu.", example:"a = 1\nb = 2\nprint(a and b)  # 2", keywords:"logical and short-circuit"},
+  {section:"Kľúčové slová", subsection:"Logické operátory", name:"or", fullname:"logical disjunction", translation:"logická disjunkcia (alebo)", description:"Short-circuit; vráti prvú pravdivú hodnotu alebo poslednú.", example:"username = input() or 'guest'", keywords:"logical or short-circuit"},
+  {section:"Kľúčové slová", subsection:"Logické operátory", name:"not", fullname:"logical negation", translation:"negácia (nie)", description:"Neguje pravdivosť výrazu.", example:"print(not True)  # False", keywords:"logical not"},
+
+  {section:"Kľúčové slová", subsection:"Porovnanie a kontrola", name:"is", fullname:"identity operator", translation:"porovnanie identity", description:"Porovnáva identitu (či ide o ten istý objekt), nie rovnosť hodnôt.", example:"a = []\nb = []\nprint(a == b, a is b)  # True False", keywords:"identity is same object"},
+  {section:"Kľúčové slová", subsection:"Porovnanie a kontrola", name:"in", fullname:"membership operator", translation:"členstvo v kolekcii", description:"Testuje, či prvok patrí do kolekcie (volá __contains__).", example:"print(2 in [1,2,3])  # True", keywords:"membership contains __contains__"},
+
+  {section:"Kľúčové slová", subsection:"Importovanie", name:"import", fullname:"module import", translation:"import modulu", description:"Načítanie modulu do aktuálneho priestoru mien.", example:"import math\nprint(math.pi)", keywords:"module import"},
+  {section:"Kľúčové slová", subsection:"Importovanie", name:"from", fullname:"selective import", translation:"import z modulu", description:"Importuje konkrétne názvy z modulu; podporuje aj aliasy.", example:"from math import sqrt as sq\nprint(sq(9))", keywords:"from import as alias"},
+  {section:"Kľúčové slová", subsection:"Importovanie", name:"as", fullname:"alias assignment", translation:"alias (prezývka)", description:"Priradí alias pre importovaný modul/názov.", example:"import numpy as np", keywords:"alias as"},
+
+  {section:"Kľúčové slová", subsection:"Definície", name:"def", fullname:"define function", translation:"definícia funkcie", description:"Vytvorí novú funkciu s parametrami, telom a voliteľným návratovým typom (anotácia).", example:"def add(a:int, b:int) -> int:\n  return a+b", keywords:"def function definition"},
+  {section:"Kľúčové slová", subsection:"Definície", name:"class", fullname:"class definition", translation:"definícia triedy", description:"Vytvorí novú triedu (typ) s atribútmi a metódami.", example:"class Person:\n  def __init__(self,name):\n    self.name = name", keywords:"class object type"},
+  {section:"Kľúčové slová", subsection:"Definície", name:"lambda", fullname:"lambda function", translation:"anonymná funkcia", description:"Krátka jednovýrazová funkcia bez mena.", example:"double = lambda x: x*2\nprint(double(3))", keywords:"lambda anonymous function"},
+
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"if", fullname:"conditional statement", translation:"podmienka", description:"Vetvenie toku podľa pravdivosti výrazu.", example:"if x > 0:\n  print('kladné')", keywords:"if condition"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"elif", fullname:"else-if", translation:"inak ak", description:"Alternatívna vetva podmienky.", example:"if x<0:\n  ...\nelif x==0:\n  ...", keywords:"elif else if"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"else", fullname:"otherwise branch", translation:"inak", description:"Záverečná vetva, ak ostatné podmienky neplatia.", example:"if ok:\n  ...\nelse:\n  ...", keywords:"else"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"for", fullname:"for loop", translation:"cyklus for", description:"Iteruje cez iterovateľné objekty.", example:"for i in range(3):\n  print(i)", keywords:"for loop iteration"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"while", fullname:"while loop", translation:"cyklus while", description:"Opakuje blok, kým podmienka platí.", example:"while n>0:\n  n -= 1", keywords:"while loop"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"break", fullname:"break loop", translation:"ukonči cyklus", description:"Okamžite ukončí najbližší cyklus.", example:"for x in xs:\n  if x==0: break", keywords:"break exit loop"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"continue", fullname:"continue loop", translation:"preskoč iteráciu", description:"Preskočí zvyšok tela cyklu a pokračuje ďalšou iteráciou.", example:"for x in xs:\n  if x<0: continue", keywords:"continue skip"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"pass", fullname:"no operation", translation:"nič nerobí", description:"Prázdne miesto — syntaktický placeholder.", example:"def todo():\n  pass", keywords:"pass placeholder nop"},
+
+  {section:"Kľúčové slová", subsection:"Výnimky", name:"try", fullname:"try block", translation:"skúšobný blok", description:"Zahŕňa kód, ktorý môže vyhodiť výnimku.", example:"try:\n  x = int(s)\nexcept ValueError:\n  ...", keywords:"try exception"},
+  {section:"Kľúčové slová", subsection:"Výnimky", name:"except", fullname:"exception handler", translation:"zachytenie výnimky", description:"Zachytí špecifický typ výnimky.", example:"except KeyError as e:\n  print(e)", keywords:"except catch error"},
+  {section:"Kľúčové slová", subsection:"Výnimky", name:"finally", fullname:"finally block", translation:"vždy vykonaj", description:"Vykoná sa vždy, bez ohľadu na výnimku.", example:"try:\n  f=open('a')\nfinally:\n  f.close()", keywords:"finally always"},
+  {section:"Kľúčové slová", subsection:"Výnimky", name:"raise", fullname:"raise exception", translation:"vyhoď výnimku", description:"Vyvolá výnimku ručne.", example:"raise ValueError('zlé dáta')", keywords:"raise error throw"},
+  {section:"Kľúčové slová", subsection:"Riadenie toku", name:"assert", fullname:"assertion", translation:"tvrdenie", description:"Overí podmienku pri behu; pri nepravde vyhodí AssertionError.", example:"assert x>0, 'x musí byť > 0'", keywords:"assert debugging invariant"},
+
+  {section:"Kľúčové slová", subsection:"Kontextové manažéry", name:"with", fullname:"context manager", translation:"správa zdrojov", description:"Zabezpečí korektné otvorenie/zatvorenie zdrojov.", example:"with open('a.txt') as f:\n  data = f.read()", keywords:"with context manager __enter__ __exit__"},
+
+  {section:"Kľúčové slová", subsection:"Asynchrónne", name:"async", fullname:"asynchronous function", translation:"asynchrónna funkcia", description:"Deklaruje korutínu (async def).", example:"async def fetch():\n  ...", keywords:"async coroutine"},
+  {section:"Kľúčové slová", subsection:"Asynchrónne", name:"await", fullname:"await expression", translation:"čakanie na awaitable", description:"Pozastaví korutínu do dokončenia awaitable objektu.", example:"await asyncio.sleep(1)", keywords:"await coroutine"},
+
+  {section:"Kľúčové slová", subsection:"Pattern Matching", name:"match", fullname:"structural pattern matching", translation:"štrukturálne vzorovanie", description:"Porovnáva objekt proti vzorom (od Python 3.10).", example:"match point:\n  case (0, y): print('na osi Y')", keywords:"match pattern"},
+  {section:"Kľúčové slová", subsection:"Pattern Matching", name:"case", fullname:"pattern case", translation:"prípad vzoru", description:"Definuje konkrétny vzor v match bloku.", example:"case {'x': x, 'y': y}:", keywords:"case pattern"},
+
+  {section:"Kľúčové slová", subsection:"Rozšírené scoping", name:"global", fullname:"global statement", translation:"globálna premenná", description:"Označí, že priradenie sa týka globálneho mena.", example:"count = 0\ndef inc():\n  global count\n  count += 1", keywords:"global scope"},
+  {section:"Kľúčové slová", subsection:"Rozšírené scoping", name:"nonlocal", fullname:"nonlocal statement", translation:"ne-lokálna premenná", description:"Označí, že priradenie sa týka najbližšieho uzatvárajúceho scope (nie globálu).", example:"def outer():\n  x=0\n  def inner():\n    nonlocal x\n    x+=1", keywords:"nonlocal closure"},
+
+  /* --- DÁTOVÉ TYPY (builtins) --- */
+  {section:"Dátové typy", subsection:"Číselné", name:"int", fullname:"integer", translation:"celé číslo", description:"Typ pre celé čísla ľubovoľnej veľkosti.", example:"a = 42\nb = int('101', base=3)", keywords:"int integer number whole"},
+  {section:"Dátové typy", subsection:"Číselné", name:"float", fullname:"floating-point number", translation:"desatinné číslo (plávajúca čiarka)", description:"IEEE 754 double-precision číslo.", example:"x = 3.14\ny = float('nan')", keywords:"float double decimal"},
+  {section:"Dátové typy", subsection:"Číselné", name:"complex", fullname:"complex number", translation:"komplexné číslo", description:"Číslo s reálnou a imaginárnou zložkou.", example:"z = 1+2j\nprint(z.real, z.imag)", keywords:"complex imaginary"},
+  {section:"Dátové typy", subsection:"Logické a špeciálne", name:"bool", fullname:"boolean", translation:"logická hodnota", description:"Podtyp int reprezentujúci True/False.", example:"bool(1)  # True", keywords:"bool boolean true false"},
+  {section:"Dátové typy", subsection:"Reťazce a binárne", name:"str", fullname:"string", translation:"reťazec", description:"Immutabilná sekvencia Unicode znakov.", example:"s = 'Ahoj'\nprint(s.upper())", keywords:"string text unicode"},
+  {section:"Dátové typy", subsection:"Reťazce a binárne", name:"bytes", fullname:"byte sequence", translation:"sekvencia bajtov", description:"Immutabilná sekvencia 0–255.", example:"b = b'ABC'\nprint(b[0])  # 65", keywords:"bytes binary"},
+  {section:"Dátové typy", subsection:"Reťazce a binárne", name:"bytearray", fullname:"mutable byte sequence", translation:"meniteľná sekvencia bajtov", description:"Mutable verzia bytes.", example:"ba = bytearray(b'ABC')\nba[0] = 97", keywords:"bytearray binary"},
+  {section:"Dátové typy", subsection:"Reťazce a binárne", name:"memoryview", fullname:"memory view", translation:"pohľad na pamäť", description:"Zdieľaný pohľad na binárne dáta bez kopírovania.", example:"mv = memoryview(b'ABCD')\nprint(mv[1])", keywords:"memoryview buffer"},
+
+  {section:"Dátové typy", subsection:"Kolekcie", name:"list", fullname:"list", translation:"zoznam", description:"Mutable usporiadaná kolekcia.", example:"l = [1,2]\nl.append(3)", keywords:"list array"},
+  {section:"Dátové typy", subsection:"Kolekcie", name:"tuple", fullname:"tuple", translation:"n-tica", description:"Immutabilná usporiadaná kolekcia.", example:"t = (1,'a')", keywords:"tuple immutable"},
+  {section:"Dátové typy", subsection:"Kolekcie", name:"dict", fullname:"dictionary", translation:"slovník (mapa)", description:"Mapovanie kľúč → hodnota, zachováva poradie vloženia.", example:"d = {'a':1}\nprint(d.get('x',0))", keywords:"dict mapping map"},
+  {section:"Dátové typy", subsection:"Kolekcie", name:"set", fullname:"set", translation:"množina", description:"Neusporiadaná kolekcia unikátnych prvkov.", example:"a={1,2}; b={2,3}\nprint(a & b)", keywords:"set unique"},
+  {section:"Dátové typy", subsection:"Kolekcie", name:"frozenset", fullname:"frozen set", translation:"nemenná množina", description:"Immutabilná verzia set; hashovateľná.", example:"fs = frozenset([1,2,2])", keywords:"frozenset immutable"},
+
+  {section:"Dátové typy", subsection:"Ostatné vstavané typy", name:"range", fullname:"range sequence", translation:"číselný rozsah", description:"Efektívna sekvencia čísel (len hranice).", example:"for i in range(1,5,2): print(i)", keywords:"range sequence"},
+  {section:"Dátové typy", subsection:"Ostatné vstavané typy", name:"slice", fullname:"slice object", translation:"výrez (slice)", description:"Objekt určujúci intervaly indexov.", example:"s = slice(1,5,2)\nprint([0,1,2,3,4,5][s])", keywords:"slice slicing"},
+  {section:"Dátové typy", subsection:"OOP pomocníci", name:"object", fullname:"root object", translation:"koreňový objekt", description:"Všetky triedy dedičia z object.", example:"class A: pass\nisinstance(A(), object)", keywords:"object base root"},
+  {section:"Dátové typy", subsection:"OOP pomocníci", name:"property", fullname:"managed attribute", translation:"spravovaná vlastnosť", description:"Vytvára vlastnosť s getter/setter/deleter.", example:"class C:\n  def __init__(self): self._x=0\n  @property\n  def x(self): return self._x", keywords:"property getter setter"},
+  {section:"Dátové typy", subsection:"OOP pomocníci", name:"classmethod", fullname:"class method", translation:"triedna metóda", description:"Metóda viazaná na triedu (nie inštanciu).", example:"class C:\n  @classmethod\n  def build(cls): return cls()", keywords:"classmethod"},
+  {section:"Dátové typy", subsection:"OOP pomocníci", name:"staticmethod", fullname:"static method", translation:"statická metóda", description:"Metóda bez implicitného self/cls.", example:"class C:\n  @staticmethod\n  def add(a,b): return a+b", keywords:"staticmethod"},
+
+  /* --- OPERÁTORY --- */
+  {section:"Operátory", subsection:"Aritmetické", name:"+", fullname:"addition", translation:"sčítanie", description:"Sčíta dve hodnoty.", example:"3 + 4  # 7", keywords:"operator add +"},
+  {section:"Operátory", subsection:"Aritmetické", name:"-", fullname:"subtraction", translation:"odčítanie", description:"Odčíta druhú hodnotu od prvej.", example:"7 - 2  # 5", keywords:"operator -"},
+  {section:"Operátory", subsection:"Aritmetické", name:"*", fullname:"multiplication", translation:"násobenie", description:"Násobenie čísel; opakovanie sekvencií.", example:"'ab'*3  # 'ababab'", keywords:"operator * multiply"},
+  {section:"Operátory", subsection:"Aritmetické", name:"/", fullname:"true division", translation:"desatinné delenie", description:"Vždy float výsledok.", example:"7/2  # 3.5", keywords:"operator / division"},
+  {section:"Operátory", subsection:"Aritmetické", name:"//", fullname:"floor division", translation:"celočíselné delenie (podlaha)", description:"Zaokrúhľuje nadol.", example:"7//2  # 3", keywords:"operator // floor"},
+  {section:"Operátory", subsection:"Aritmetické", name:"%", fullname:"modulo", translation:"zvyšok po delení", description:"Zvyšok po delení.", example:"7%3  # 1", keywords:"operator % modulo"},
+  {section:"Operátory", subsection:"Aritmetické", name:"**", fullname:"exponentiation", translation:"mocnina", description:"Umocnenie čísla.", example:"2**3  # 8", keywords:"operator ** power"},
+
+  {section:"Operátory", subsection:"Porovnávacie", name:"==", fullname:"equality", translation:"rovnosť", description:"Porovnáva rovnosť hodnôt.", example:"[1]==[1]  # True", keywords:"== equality"},
+  {section:"Operátory", subsection:"Porovnávacie", name:"!=", fullname:"inequality", translation:"nerovnosť", description:"Porovnáva nerovnosť hodnôt.", example:"1!=2  # True", keywords:"!= not equal"},
+  {section:"Operátory", subsection:"Porovnávacie", name:"<, <=, >, >=", fullname:"ordering comparisons", translation:"poradie (menší/väčší)", description:"Porovnania poradia.", example:"2<3  # True", keywords:"< <= > >="},
+
+  {section:"Operátory", subsection:"Logické", name:"and", fullname:"logical and", translation:"logické a", description:"Vráti poslednú vyhodnotenú hodnotu.", example:"'' and 'x'  # ''", keywords:"and operator"},
+  {section:"Operátory", subsection:"Logické", name:"or", fullname:"logical or", translation:"logické alebo", description:"Vráti prvú pravdivú hodnotu.", example:"'' or 'x'  # 'x'", keywords:"or operator"},
+  {section:"Operátory", subsection:"Logické", name:"not", fullname:"logical not", translation:"logické nie", description:"Neguje pravdivosť.", example:"not 0  # True", keywords:"not operator"},
+
+  {section:"Operátory", subsection:"Členstvo a identita", name:"in / not in", fullname:"membership test", translation:"členstvo", description:"Testuje prítomnosť prvku v kolekcii.", example:"2 in {1,2,3}", keywords:"in not in membership"},
+  {section:"Operátory", subsection:"Členstvo a identita", name:"is / is not", fullname:"identity test", translation:"identita objektov", description:"Porovnáva identitu (ten istý objekt).", example:"a is b", keywords:"is identity"},
+
+  {section:"Operátory", subsection:"Bitové", name:"& | ^ ~ << >>", fullname:"bitwise and/or/xor/not/shifts", translation:"bitové operácie", description:"Operácie na bitovej reprezentácii celých čísel.", example:"5 & 3  # 1\n1 << 3  # 8", keywords:"bitwise & | ^ ~ << >>"},
+
+  {section:"Operátory", subsection:"Priraďovanie (augmented)", name:"+=, -=, *=, /=, //=, %=, **=", fullname:"augmented assignment", translation:"skrátené priraďovanie", description:"Aktualizuje premennú v mieste.", example:"x=1; x+=2  # 3", keywords:"augmented assignment"},
+
+  /* --- RIADIACE ŠTRUKTÚRY (syntaktické konštrukcie) --- */
+  {section:"Riadiace štruktúry", subsection:"Podmienky", name:"x if cond else y", fullname:"conditional expression", translation:"ternárny výraz", description:"Skalárny výraz na báze podmienky.", example:"msg = 'OK' if ok else 'ERR'", keywords:"ternary conditional"},
+
+  {section:"Riadiace štruktúry", subsection:"Slučky", name:"for ... else", fullname:"for-else clause", translation:"for s vetvou else", description:"Blok else sa vykoná, ak cyklus neskončil cez break.", example:"for x in xs:\n  if x<0: break\nelse:\n  print('bez záporných')", keywords:"for else"},
+  {section:"Riadiace štruktúry", subsection:"Slučky", name:"while ... else", fullname:"while-else clause", translation:"while s vetvou else", description:"Else sa vykoná ak cyklus neskončí breakom.", example:"while n>0:\n  n-=1\nelse:\n  print('done')", keywords:"while else"},
+
+  {section:"Riadiace štruktúry", subsection:"Context manager", name:"with expr as var:", fullname:"with-statement", translation:"kontextový manažér", description:"Automatické __enter__/__exit__.", example:"from contextlib import ExitStack\nwith ExitStack() as stack:\n  ...", keywords:"with context manager"},
+
+  /* --- FUNKCIE A VOLANIA --- */
+  {section:"Funkcie", subsection:"Definícia", name:"def name(params):", fullname:"function definition", translation:"definícia funkcie", description:"Blok kódu s parametrami a návratovou hodnotou.", example:"def area(r: float) -> float:\n  return 3.14159*r*r", keywords:"def function"},
+  {section:"Funkcie", subsection:"Argumenty", name:"*args / **kwargs", fullname:"var-positional / var-keyword", translation:"variabilné argumenty", description:"Zberá extra pozičné a kľúčové argumenty.", example:"def f(a,*args,**kw):\n  print(args, kw)", keywords:"args kwargs varargs"},
+  {section:"Funkcie", subsection:"Argumenty", name:"/ a * v signatúre", fullname:"positional-only / keyword-only", translation:"len pozičné / len kľúčové", description:"Určuje, ako sa môžu argumenty odovzdávať.", example:"def f(a,/,b,*,c): ...", keywords:"positional-only keyword-only"},
+  {section:"Funkcie", subsection:"Dekorátory", name:"@decorator", fullname:"function decorator", translation:"dekorátor", description:"Modifikuje alebo obaluje funkciu/triedu.", example:"from functools import lru_cache\n@lru_cache\ndef fib(n): ...", keywords:"decorator wraps"},
+  {section:"Funkcie", subsection:"Anotácie", name:": type -> type", fullname:"type annotations", translation:"typové anotácie", description:"Pomáhajú nástrojom (mypy/pyright).", example:"def f(x: int) -> str: return str(x)", keywords:"typing annotations"},
+  {section:"Funkcie", subsection:"Vstavané volania", name:"callable(obj)", fullname:"callable check", translation:"je volateľné", description:"Zistí, či objekt je volateľný.", example:"callable(len)  # True", keywords:"callable"},
+
+  /* --- OOP / TRIEDY --- */
+  {section:"Triedy a OOP", subsection:"Základy", name:"class Name(Base):", fullname:"class definition", translation:"definícia triedy", description:"Vytvorenie typu s dedičnosťou.", example:"class C(list): pass", keywords:"class inherit"},
+  {section:"Triedy a OOP", subsection:"Inštancia", name:"obj = Class()", fullname:"instantiation", translation:"inštanciovanie", description:"Vytvorenie objektu triedy.", example:"p = Person('Eva')", keywords:"instance new"},
+  {section:"Triedy a OOP", subsection:"Špeciálne metódy", name:"__init__", fullname:"initializer", translation:"konštruktor", description:"Inicializácia novej inštancie.", example:"def __init__(self,x): self.x=x", keywords:"dunder init"},
+  {section:"Triedy a OOP", subsection:"Špeciálne metódy", name:"__repr__ / __str__", fullname:"representations", translation:"reprezentácie", description:"Repr pre vývojára, str pre používateľa.", example:"def __repr__(self): return f'C({self.x})'", keywords:"repr str"},
+  {section:"Triedy a OOP", subsection:"Špeciálne metódy", name:"__len__ / __iter__ / __next__", fullname:"sequence/iterator protocol", translation:"protokol dĺžky/iterácie", description:"Umožní len(), iter(), next().", example:"def __len__(self): return len(self.data)", keywords:"len iter next"},
+  {section:"Triedy a OOP", subsection:"Špeciálne metódy", name:"__enter__ / __exit__", fullname:"context manager methods", translation:"metódy kontextu", description:"Umožňujú použitie s with.", example:"def __enter__(self):...\ndef __exit__(self,t,v,tb):...", keywords:"context manager"},
+  {section:"Triedy a OOP", subsection:"Špeciálne metódy", name:"__getitem__ / __setitem__", fullname:"item accessors", translation:"prístup k položkám", description:"Podpora indexovania a priradenia.", example:"def __getitem__(self,i): return ...", keywords:"getitem setitem"},
+  {section:"Triedy a OOP", subsection:"Špeciálne metódy", name:"__call__", fullname:"callable instance", translation:"volateľná inštancia", description:"Umožní volať objekt ako funkciu.", example:"def __call__(self,x): return x*2", keywords:"__call__ callable"},
+
+  /* --- VSTAVANÉ FUNKCIE (výber) --- */
+  {section:"Vstavané funkcie", subsection:"Konverzie", name:"int(x)", fullname:"convert to integer", translation:"prevod na celé číslo", description:"Prevedie hodnotu na int, s voliteľnou základňou pre str.", example:"int('101', base=2)  # 5", keywords:"int convert"},
+  {section:"Vstavané funkcie", subsection:"Konverzie", name:"float(x)", fullname:"convert to float", translation:"prevod na desatinné číslo", description:"Prevedie hodnotu na float.", example:"float('3.14')", keywords:"float convert"},
+  {section:"Vstavané funkcie", subsection:"Konverzie", name:"str(x)", fullname:"convert to string", translation:"prevod na reťazec", description:"Textová reprezentácia objektu.", example:"str(42)  # '42'", keywords:"str convert string"},
+  {section:"Vstavané funkcie", subsection:"Konverzie", name:"bool(x)", fullname:"convert to boolean", translation:"prevod na logickú hodnotu", description:"Pravdivosť podľa truthiness.", example:"bool([])  # False", keywords:"bool truthiness"},
+  {section:"Vstavané funkcie", subsection:"Konverzie", name:"list(), tuple(), dict(), set()", fullname:"collection constructors", translation:"konštruktory kolekcií", description:"Vytvárajú nové kolekcie.", example:"list('abc')  # ['a','b','c']", keywords:"list tuple dict set"},
+
+  {section:"Vstavané funkcie", subsection:"Iterovanie", name:"range()", fullname:"range constructor", translation:"rozsah", description:"Efektívna číselná postupnosť.", example:"range(0,10,2)", keywords:"range"},
+  {section:"Vstavané funkcie", subsection:"Iterovanie", name:"enumerate()", fullname:"enumerate iterator", translation:"s indexom", description:"Vracia (index, hodnota).", example:"for i,v in enumerate(xs): ...", keywords:"enumerate"},
+  {section:"Vstavané funkcie", subsection:"Iterovanie", name:"zip()", fullname:"zip iterator", translation:"spájanie sekvencií", description:"Zlučuje položky z viacerých iterables.", example:"for a,b in zip(A,B): ...", keywords:"zip"},
+  {section:"Vstavané funkcie", subsection:"Iterovanie", name:"iter(), next()", fullname:"iterator protocol", translation:"iterátor a ďalší prvok", description:"Získa iterátor a ďalšiu položku.", example:"it = iter(xs)\nprint(next(it))", keywords:"iter next"},
+  {section:"Vstavané funkcie", subsection:"Iterovanie", name:"map(), filter()", fullname:"functional transforms", translation:"mapovanie / filtrovanie", description:"Aplikuje funkciu / filtruje podľa predikátu.", example:"list(map(str,[1,2]))\nlist(filter(bool,[0,1]))", keywords:"map filter"},
+
+  {section:"Vstavané funkcie", subsection:"Redukcie a poradia", name:"sum(), min(), max()", fullname:"reductions", translation:"súčet / minimum / maximum", description:"Agregačné operácie.", example:"sum([1,2,3])  # 6", keywords:"sum min max"},
+  {section:"Vstavané funkcie", subsection:"Redukcie a poradia", name:"sorted(), reversed()", fullname:"ordering helpers", translation:"triedenie / obrátenie", description:"Triedi a vracia obrátený iterátor.", example:"sorted(xs,key=len)", keywords:"sorted reversed"},
+  {section:"Vstavané funkcie", subsection:"Redukcie a poradia", name:"any(), all()", fullname:"quantifiers", translation:"niektoré / všetky", description:"Test pravdivosti prvkov.", example:"all(x>0 for x in xs)", keywords:"any all"},
+
+  {section:"Vstavané funkcie", subsection:"Matematika a formát", name:"abs(), round()", fullname:"absolute / rounding", translation:"absolútna hodnota / zaokrúhlenie", description:"Základné numerické operácie.", example:"round(3.14159,2)  # 3.14", keywords:"abs round"},
+  {section:"Vstavané funkcie", subsection:"Matematika a formát", name:"pow(), divmod()", fullname:"power / quotient-remainder", translation:"mocnina / podiel a zvyšok", description:"Matematické nástroje.", example:"divmod(7,3)  # (2,1)", keywords:"pow divmod"},
+  {section:"Vstavané funkcie", subsection:"Matematika a formát", name:"bin(), oct(), hex()", fullname:"numeric base formatters", translation:"formátovanie čísel", description:"Reprezentácia v iných sústavách.", example:"bin(13)  # '0b1101'", keywords:"bin oct hex"},
+  {section:"Vstavané funkcie", subsection:"Matematika a formát", name:"format(), repr(), ascii()", fullname:"string formatting / repr", translation:"formátovanie a reprezentácia", description:"Formátovanie a bezpečná reprezentácia.", example:"format(3.14, '.2f')", keywords:"format repr ascii"},
+
+  {section:"Vstavané funkcie", subsection:"Reflexia", name:"type(), isinstance(), issubclass()", fullname:"type introspection", translation:"typová introspekcia", description:"Zisťovanie typu a vzťahov.", example:"isinstance(1,int)", keywords:"type isinstance issubclass"},
+  {section:"Vstavané funkcie", subsection:"Reflexia", name:"id(), hash()", fullname:"identity / hash", translation:"identita / heš", description:"Identifikátor objektu a hashovacia hodnota.", example:"hash((1,2))", keywords:"id hash"},
+  {section:"Vstavané funkcie", subsection:"Reflexia", name:"getattr()/setattr()/hasattr()/delattr()", fullname:"attribute access", translation:"prístup k atribútom", description:"Dynamická práca s atribútmi objektu.", example:"getattr(obj,'x',None)", keywords:"getattr setattr hasattr delattr"},
+  {section:"Vstavané funkcie", subsection:"Reflexia", name:"vars(), dir(), help()", fullname:"introspection utils", translation:"prehľad mien a pomocník", description:"Zoznam atribútov, pomocník.", example:"dir(str)\nhelp(len)", keywords:"vars dir help"},
+
+  {section:"Vstavané funkcie", subsection:"Kód a prostredie", name:"open()", fullname:"open file", translation:"otvor súbor", description:"Otvorí súbor a vráti file objekt.", example:"with open('a.txt','w') as f:\n  f.write('hi')", keywords:"open file io"},
+  {section:"Vstavané funkcie", subsection:"Kód a prostredie", name:"compile(), eval(), exec()", fullname:"code evaluation", translation:"kompilácia a vykonanie kódu", description:"Pokročilé: dynamická kompilácia a vykonanie kódu.", example:"code = compile('2+2','<str>','eval')\nprint(eval(code))", keywords:"compile eval exec"},
+  {section:"Vstavané funkcie", subsection:"Kód a prostredie", name:"globals(), locals()", fullname:"namespace dicts", translation:"globálne a lokálne mená", description:"Slovníky aktuálnych mien.", example:"print(list(globals().keys())[:5])", keywords:"globals locals"},
+  {section:"Vstavané funkcie", subsection:"OOP pomocníci", name:"super()", fullname:"super proxy", translation:"prístup k predkovi", description:"Umožňuje volať metódy predka.", example:"class B(A):\n  def __init__(self): super().__init__()", keywords:"super inheritance"},
+
+  /* --- VÝNIMKY (výber) --- */
+  {section:"Výnimky", subsection:"Základ", name:"BaseException", fullname:"root of exceptions", translation:"koreň výnimiek", description:"Supertrieda všetkých výnimiek.", example:"try:\n  ...\nexcept BaseException:\n  ...", keywords:"BaseException root"},
+  {section:"Výnimky", subsection:"Základ", name:"Exception", fullname:"standard exceptions base", translation:"základ bežných výnimiek", description:"Predok štandardných výnimiek.", example:"raise Exception('oops')", keywords:"Exception"},
+  {section:"Výnimky", subsection:"Bežné chyby", name:"ValueError", fullname:"invalid value", translation:"neplatná hodnota", description:"Nesprávna hodnota správneho typu.", example:"int('xx')  # ValueError", keywords:"ValueError"},
+  {section:"Výnimky", subsection:"Bežné chyby", name:"TypeError", fullname:"wrong type", translation:"nesprávny typ", description:"Operácia s nevhodným typom.", example:"1 + 'a'  # TypeError", keywords:"TypeError"},
+  {section:"Výnimky", subsection:"Bežné chyby", name:"KeyError", fullname:"missing key", translation:"chýbajúci kľúč", description:"Kľúč nie je v dict.", example:"{'a':1}['x']  # KeyError", keywords:"KeyError"},
+  {section:"Výnimky", subsection:"Bežné chyby", name:"IndexError", fullname:"index out of range", translation:"index mimo rozsahu", description:"Index mimo hraníc sekvencie.", example:"[1][2]  # IndexError", keywords:"IndexError"},
+  {section:"Výnimky", subsection:"Bežné chyby", name:"AttributeError", fullname:"missing attribute", translation:"chýbajúci atribút", description:"Objekt nemá daný atribút.", example:"(1).upper()  # AttributeError", keywords:"AttributeError"},
+  {section:"Výnimky", subsection:"Bežné chyby", name:"ZeroDivisionError", fullname:"division by zero", translation:"delenie nulou", description:"Delenie nulou u čísel.", example:"1/0  # ZeroDivisionError", keywords:"ZeroDivisionError"},
+  {section:"Výnimky", subsection:"Import a súbory", name:"ImportError / ModuleNotFoundError", fullname:"import errors", translation:"chyby importu", description:"Problémy pri importovaní modulov.", example:"import not_exist  # ModuleNotFoundError", keywords:"ImportError ModuleNotFoundError"},
+  {section:"Výnimky", subsection:"IO a OS", name:"FileNotFoundError", fullname:"missing file", translation:"súbor nenájdený", description:"Cieľový súbor neexistuje.", example:"open('nope.txt')  # FileNotFoundError", keywords:"FileNotFoundError"},
+  {section:"Výnimky", subsection:"Tok iterácie", name:"StopIteration", fullname:"iteration end", translation:"koniec iterácie", description:"Signalizuje koniec iterátora.", example:"raise StopIteration", keywords:"StopIteration"},
+  {section:"Výnimky", subsection:"Asynchrónne", name:"StopAsyncIteration", fullname:"async iteration end", translation:"koniec async iterácie", description:"Pre asynchrónne iterátory.", example:"raise StopAsyncIteration", keywords:"StopAsyncIteration"},
+  {section:"Výnimky", subsection:"Programový tok", name:"AssertionError", fullname:"failed assertion", translation:"zlyhané tvrdenie", description:"assert výraz neplatí.", example:"assert False  # AssertionError", keywords:"AssertionError"},
+  {section:"Výnimky", subsection:"Ostatné", name:"RuntimeError / NotImplementedError", fullname:"runtime issues", translation:"behová chyba / neimplementované", description:"Signalizujú všeobecné problémy a neimplementované časti.", example:"raise NotImplementedError", keywords:"RuntimeError NotImplementedError"},
+];
+
+/* ===========
+   RENDER: dynamicky vygeneruje sekcie → podsekcie → položky
+   =========== */
+function groupBy(arr, key) {
+  const m = new Map();
+  for (const it of arr) {
+    const k = it[key];
+    if (!m.has(k)) m.set(k, []);
+    m.get(k).push(it);
+  }
+  return m;
+}
+
+function render() {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const bySection = groupBy(SYNTAX, 'section');
+  for (const [sectionName, items] of bySection) {
+    // Section
+    const sec = document.createElement('section');
+    sec.className = 'section';
+
+    const header = document.createElement('div');
+    header.className = 'main-collapsible';
+    header.tabIndex = 0;
+
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = sectionName;
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = `Počet: ${items.length}`;
+
+    header.appendChild(title);
+    header.appendChild(meta);
+
+    const subcontent = document.createElement('div');
+    subcontent.className = 'subcontent';
+
+    // Subsections
+    const bySub = groupBy(items, 'subsection');
+    for (const [subName, subItems] of bySub) {
+      const subsec = document.createElement('div');
+      subsec.className = 'subsection';
+
+      const subBtn = document.createElement('div');
+      subBtn.className = 'subcollapsible';
+      subBtn.textContent = subName;
+
+      const list = document.createElement('div');
+      list.className = 'items';
+
+      for (const it of subItems) {
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.dataset.keywords = (it.keywords||'').toLowerCase() + ' ' + [
+          it.name, it.fullname, it.translation, it.description
+        ].join(' ').toLowerCase();
+
+        const name = document.createElement('div');
+        name.className = 'name';
+        name.innerHTML = `<span class="syntax">${escapeHtml(it.name)}</span> <span class="translation">(${escapeHtml(it.fullname)}) — ${escapeHtml(it.translation)}</span>`;
+
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = it.description;
+
+        const ex = document.createElement('div');
+        ex.className = 'example';
+        ex.textContent = it.example;
+
+        item.appendChild(name);
+        item.appendChild(desc);
+        item.appendChild(ex);
+        list.appendChild(item);
+      }
+
+      subsec.appendChild(subBtn);
+      subsec.appendChild(list);
+      subcontent.appendChild(subsec);
+    }
+
+    sec.appendChild(header);
+    sec.appendChild(subcontent);
+    content.appendChild(sec);
+
+    // Interakcie
+    header.addEventListener('click', () => {
+      subcontent.style.display = (subcontent.style.display === 'block') ? 'none' : 'block';
+      header.setAttribute('aria-expanded', subcontent.style.display === 'block');
+    });
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); header.click(); }
+    });
+    subcontent.querySelectorAll('.subcollapsible').forEach(sc => {
+      sc.addEventListener('click', () => {
+        sc.classList.toggle('active');
+        const items = sc.nextElementSibling;
+        items.style.display = (items.style.display === 'block') ? 'none' : 'block';
+      });
+    });
+  }
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+render();
+
+/* ===========
+   SEARCH + EXPAND/COLLAPSE ALL
+   =========== */
+const matchCountEl = document.getElementById('matchCount');
+const searchInput = document.getElementById('search');
+
+function clearHighlights(){
+  document.querySelectorAll('.highlight').forEach(el=>el.classList.remove('highlight'));
+}
+
+function expandAll(){
+  document.querySelectorAll('.subcontent').forEach(s => s.style.display = 'block');
+  document.querySelectorAll('.subsection .items').forEach(it => it.style.display = 'block');
+  document.querySelectorAll('.subcollapsible').forEach(sc => sc.classList.add('active'));
+}
+function collapseAll(){
+  document.querySelectorAll('.subcontent').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.subsection .items').forEach(it => it.style.display = 'none');
+  document.querySelectorAll('.subcollapsible').forEach(sc => sc.classList.remove('active'));
+}
+
+document.getElementById('expandAll').addEventListener('click', expandAll);
+document.getElementById('collapseAll').addEventListener('click', collapseAll);
+
+let debounce=null;
+searchInput.addEventListener('input', (e)=>{
+  const q = (e.target.value||'').trim().toLowerCase();
+  if (debounce) clearTimeout(debounce);
+  debounce = setTimeout(()=> doSearch(q), 120);
+});
+
+function doSearch(q){
+  clearHighlights();
+  if(!q){ matchCountEl.textContent = '0 výsledkov'; return; }
+  // vždy otvoriť sekcie s matchmi
+  expandAll();
+  let matches = 0;
+  document.querySelectorAll('.item').forEach(it=>{
+    const hay = (it.dataset.keywords||'').toLowerCase();
+    if(hay.includes(q)){
+      it.classList.add('highlight');
+      matches++;
+    } else {
+      it.classList.remove('highlight');
+    }
+  });
+  matchCountEl.textContent = `${matches} výsledkov`;
+  const first = document.querySelector('.item.highlight');
+  if(first){ first.scrollIntoView({behavior:'smooth', block:'center'}); }
+}
+
+/* Hotkeys: Ctrl+K fokus na hľadanie */
+window.addEventListener('keydown', (e)=>{
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
+    e.preventDefault(); searchInput.focus();
+  }
+});
+</script>
+</body>
+</html>
